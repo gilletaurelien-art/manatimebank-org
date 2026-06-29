@@ -170,13 +170,21 @@ a {
 .mana-wallpaper-core span {
   position: absolute;
   width: 2px;
-  height: 28px;
+  height: 30px;
   border-radius: 9999px;
   background: linear-gradient(180deg, #2B3FC7, #C040E8);
+  transform-origin: center;
 }
 
-.mana-wallpaper-core span:nth-child(1) { transform: translateX(-10px); }
-.mana-wallpaper-core span:nth-child(3) { transform: translateX(10px); }
+.mana-wallpaper-core span:nth-child(1) { transform: translateX(-36px) rotate(12deg); background: linear-gradient(180deg, #1F57B7, #4055D8); }
+.mana-wallpaper-core span:nth-child(2) { transform: translateX(-30px) rotate(12deg); background: linear-gradient(180deg, #255AC0, #5654DC); }
+.mana-wallpaper-core span:nth-child(3) { transform: translateX(-24px) rotate(12deg); background: linear-gradient(180deg, #2B5FC8, #6853DE); }
+.mana-wallpaper-core span:nth-child(4) { transform: translateX(-5px); background: linear-gradient(180deg, #4B45C9, #6E44D3); }
+.mana-wallpaper-core span:nth-child(5) { transform: translateX(1px); background: linear-gradient(180deg, #5843CB, #7A42D5); }
+.mana-wallpaper-core span:nth-child(6) { transform: translateX(7px); background: linear-gradient(180deg, #6540CE, #8640D8); }
+.mana-wallpaper-core span:nth-child(7) { transform: translateX(24px) rotate(-12deg); background: linear-gradient(180deg, #7B3ED3, #A43FDE); }
+.mana-wallpaper-core span:nth-child(8) { transform: translateX(30px) rotate(-12deg); background: linear-gradient(180deg, #8A3BD7, #B83FE4); }
+.mana-wallpaper-core span:nth-child(9) { transform: translateX(36px) rotate(-12deg); background: linear-gradient(180deg, #9A38DB, #C040E8); }
 
 .mana-world-line {
   width: min(74vw, 900px);

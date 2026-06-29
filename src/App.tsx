@@ -96,6 +96,12 @@ function ManaWallpaper() {
         <span />
         <span />
         <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
+        <span />
       </div>
       <div className="mana-world-line mana-world-line-one" />
       <div className="mana-world-line mana-world-line-two" />
