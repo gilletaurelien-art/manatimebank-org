@@ -167,18 +167,6 @@ a {
   animation: pulse-core 7s ease-in-out infinite;
 }
 
-.mana-wallpaper-core::before {
-  position: absolute;
-  inset: 13%;
-  content: "";
-  background-image: url('/Logo_MANA_Symbol_logo.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  mix-blend-mode: multiply;
-  opacity: 0.62;
-}
-
 .mana-wallpaper-core span {
   display: none;
 }
