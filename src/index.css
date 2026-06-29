@@ -152,10 +152,6 @@ a {
 }
 
 .mana-wallpaper-core {
-  --mana-mark-bar-gap: clamp(6px, 0.55vw, 8px);
-  --mana-mark-bar-gap-negative: clamp(-8px, -0.55vw, -6px);
-  --mana-mark-left: clamp(-42px, -3vw, -30px);
-  --mana-mark-right: clamp(30px, 3vw, 42px);
   display: grid;
   width: clamp(96px, 12vw, 160px);
   height: clamp(96px, 12vw, 160px);
@@ -171,24 +167,21 @@ a {
   animation: pulse-core 7s ease-in-out infinite;
 }
 
-.mana-wallpaper-core span {
+.mana-wallpaper-core::before {
   position: absolute;
-  width: clamp(2.5px, 0.24vw, 3.5px);
-  height: clamp(50px, 5.8vw, 68px);
-  border-radius: 9999px;
-  background: linear-gradient(180deg, #2B3FC7, #C040E8);
-  transform-origin: center;
+  inset: 13%;
+  content: "";
+  background-image: url('/Logo_MANA_Symbol_logo.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  mix-blend-mode: multiply;
+  opacity: 0.62;
 }
 
-.mana-wallpaper-core span:nth-child(1) { transform: translateX(calc(var(--mana-mark-left) - var(--mana-mark-bar-gap))) rotate(12deg); background: linear-gradient(180deg, #1F57B7, #4055D8); }
-.mana-wallpaper-core span:nth-child(2) { transform: translateX(var(--mana-mark-left)) rotate(12deg); background: linear-gradient(180deg, #255AC0, #5654DC); }
-.mana-wallpaper-core span:nth-child(3) { transform: translateX(calc(var(--mana-mark-left) + var(--mana-mark-bar-gap))) rotate(12deg); background: linear-gradient(180deg, #2B5FC8, #6853DE); }
-.mana-wallpaper-core span:nth-child(4) { transform: translateX(var(--mana-mark-bar-gap-negative)); background: linear-gradient(180deg, #4B45C9, #6E44D3); }
-.mana-wallpaper-core span:nth-child(5) { transform: translateX(0); background: linear-gradient(180deg, #5843CB, #7A42D5); }
-.mana-wallpaper-core span:nth-child(6) { transform: translateX(var(--mana-mark-bar-gap)); background: linear-gradient(180deg, #6540CE, #8640D8); }
-.mana-wallpaper-core span:nth-child(7) { transform: translateX(calc(var(--mana-mark-right) - var(--mana-mark-bar-gap))) rotate(-12deg); background: linear-gradient(180deg, #7B3ED3, #A43FDE); }
-.mana-wallpaper-core span:nth-child(8) { transform: translateX(var(--mana-mark-right)) rotate(-12deg); background: linear-gradient(180deg, #8A3BD7, #B83FE4); }
-.mana-wallpaper-core span:nth-child(9) { transform: translateX(calc(var(--mana-mark-right) + var(--mana-mark-bar-gap))) rotate(-12deg); background: linear-gradient(180deg, #9A38DB, #C040E8); }
+.mana-wallpaper-core span {
+  display: none;
+}
 
 .mana-world-line {
   width: min(74vw, 900px);
