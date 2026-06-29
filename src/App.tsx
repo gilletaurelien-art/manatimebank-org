@@ -86,27 +86,28 @@ function Section({
   );
 }
 
-function TimeField() {
+function ManaWallpaper() {
   return (
-    <div className="hero-field" aria-hidden="true">
-      <div className="time-orbit time-orbit-one" />
-      <div className="time-orbit time-orbit-two" />
-      <div className="time-orbit time-orbit-three" />
-      <div className="time-core">
+    <div className="mana-wallpaper" aria-hidden="true">
+      <div className="mana-wallpaper-orbit mana-wallpaper-orbit-one" />
+      <div className="mana-wallpaper-orbit mana-wallpaper-orbit-two" />
+      <div className="mana-wallpaper-orbit mana-wallpaper-orbit-three" />
+      <div className="mana-wallpaper-core">
         <span />
         <span />
         <span />
       </div>
-      <div className="world-line world-line-one" />
-      <div className="world-line world-line-two" />
-      <div className="world-line world-line-three" />
+      <div className="mana-world-line mana-world-line-one" />
+      <div className="mana-world-line mana-world-line-two" />
+      <div className="mana-world-line mana-world-line-three" />
     </div>
   );
 }
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-surface text-ink">
+    <div className="mana-wallpaper-page relative min-h-screen overflow-x-hidden bg-surface text-ink">
+      <ManaWallpaper />
       <header className="fixed inset-x-0 top-0 z-50 border-b border-surface-border/60 bg-surface-white/95 shadow-soft backdrop-blur-md">
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <img
@@ -140,9 +141,8 @@ export default function App() {
         </nav>
       </header>
 
-      <main id="top">
-        <section className="relative flex min-h-screen items-center overflow-hidden bg-surface-white px-6 pt-[60px] md:px-10">
-          <TimeField />
+      <main id="top" className="relative z-10">
+        <section className="relative flex min-h-screen items-center overflow-hidden bg-transparent px-6 pt-[60px] md:px-10">
           <div className="absolute inset-0 hero-glow" />
           <div className="relative z-10 mx-auto w-full max-w-6xl py-24">
             <div className="max-w-4xl">
