@@ -2,23 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color: #f8fafc;
-  background: #070b16;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
 
-html {
-  scroll-behavior: smooth;
-}
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Philosopher', Georgia, serif;
+    color: #0B1220;
+    background: #F7F8FA;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-body {
-  min-width: 320px;
-  min-height: 100vh;
-  margin: 0;
+  ::selection {
+    background-color: #C0C8F8;
+    color: #0B1220;
+  }
 }
 
 button,
@@ -26,26 +31,80 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+@layer utilities {
+  .gradient-text {
+    background: linear-gradient(110deg, #2B3FC7 0%, #8B35D6 50%, #C040E8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gradient-line {
+    background: linear-gradient(90deg, #2B3FC7 0%, #8B35D6 50%, #C040E8 100%);
+  }
+
+  .gradient-btn {
+    background: linear-gradient(110deg, #2B3FC7 0%, #8B35D6 55%, #C040E8 100%);
+    transition: opacity 150ms ease, transform 150ms ease, box-shadow 150ms ease;
+  }
+
+  .gradient-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(43, 63, 199, 0.18);
+  }
+
+  .hero-glow {
+    background:
+      radial-gradient(ellipse 700px 600px at 80% 5%, rgba(43,63,199,0.07) 0%, transparent 65%),
+      radial-gradient(ellipse 500px 400px at 90% 30%, rgba(192,64,232,0.05) 0%, transparent 60%);
+  }
+
+  .mana-card {
+    border: 1px solid #E8EAF0;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 1px 3px 0 rgba(11,18,32,0.06), 0 1px 2px -1px rgba(11,18,32,0.04);
+    backdrop-filter: blur(16px);
+  }
+
+  .mana-card:hover {
+    border-color: #C0C8F8;
+    box-shadow: 0 4px 12px 0 rgba(11,18,32,0.08), 0 2px 4px -1px rgba(11,18,32,0.04);
+  }
+}
+
 .hero-field {
   position: absolute;
   inset: 0;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 42%, rgb(90 200 216 / 0.12), transparent 24%),
-    radial-gradient(circle at 58% 36%, rgb(217 184 111 / 0.1), transparent 30%),
-    linear-gradient(180deg, #070b16 0%, #090f1d 42%, #070b16 100%);
+    radial-gradient(ellipse 700px 600px at 78% 8%, rgb(43 63 199 / 0.08), transparent 65%),
+    radial-gradient(ellipse 520px 420px at 88% 32%, rgb(192 64 232 / 0.06), transparent 60%),
+    linear-gradient(180deg, #FFFFFF 0%, #F7F8FA 100%);
 }
 
 .hero-field::before {
   position: absolute;
-  inset: 12% -10%;
+  inset: 0;
+  content: "";
+  background-image: url('/Logo_MANA_Symbol_logo.png');
+  background-repeat: no-repeat;
+  background-position: right -90px center;
+  background-size: min(58vw, 620px);
+  opacity: 0.055;
+  pointer-events: none;
+}
+
+.hero-field::after {
+  position: absolute;
+  inset: 0;
   content: "";
   background-image:
-    linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    linear-gradient(rgb(11 18 32 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(11 18 32 / 0.035) 1px, transparent 1px);
   background-size: 88px 88px;
   mask-image: radial-gradient(circle at 50% 45%, black, transparent 72%);
-  opacity: 0.44;
+  opacity: 0.5;
 }
 
 .time-orbit,
@@ -58,9 +117,9 @@ a {
 }
 
 .time-orbit {
-  border: 1px solid rgb(217 184 111 / 0.26);
+  border: 1px solid rgb(43 63 199 / 0.16);
   border-radius: 9999px;
-  box-shadow: 0 0 80px rgb(217 184 111 / 0.08);
+  box-shadow: 0 0 80px rgb(192 64 232 / 0.08);
 }
 
 .time-orbit-one {
@@ -72,14 +131,14 @@ a {
 .time-orbit-two {
   width: min(58vw, 690px);
   height: min(27vw, 320px);
-  border-color: rgb(90 200 216 / 0.2);
+  border-color: rgb(192 64 232 / 0.16);
   animation: drift-orbit 55s ease-in-out infinite reverse;
 }
 
 .time-orbit-three {
   width: min(44vw, 520px);
   height: min(20vw, 235px);
-  border-color: rgb(255 255 255 / 0.13);
+  border-color: rgb(43 63 199 / 0.11);
   animation: breathe-orbit 18s ease-in-out infinite;
 }
 
@@ -88,14 +147,14 @@ a {
   width: clamp(96px, 12vw, 160px);
   height: clamp(96px, 12vw, 160px);
   place-items: center;
-  border: 1px solid rgb(217 184 111 / 0.44);
+  border: 1px solid rgb(192 64 232 / 0.22);
   border-radius: 9999px;
   background:
-    radial-gradient(circle, rgb(255 255 255 / 0.95) 0 10%, rgb(217 184 111 / 0.92) 11% 22%, rgb(90 200 216 / 0.1) 55%, transparent 70%),
-    rgb(255 255 255 / 0.03);
+    radial-gradient(circle, rgb(255 255 255 / 0.98) 0 10%, rgb(238 239 254 / 0.95) 11% 28%, rgb(192 64 232 / 0.08) 58%, transparent 72%),
+    rgb(255 255 255 / 0.72);
   box-shadow:
-    0 0 55px rgb(217 184 111 / 0.28),
-    0 0 120px rgb(90 200 216 / 0.14);
+    0 0 55px rgb(43 63 199 / 0.14),
+    0 0 120px rgb(192 64 232 / 0.12);
   animation: pulse-core 7s ease-in-out infinite;
 }
 
@@ -104,80 +163,40 @@ a {
   width: 2px;
   height: 28px;
   border-radius: 9999px;
-  background: rgb(7 11 22 / 0.72);
+  background: linear-gradient(180deg, #2B3FC7, #C040E8);
 }
 
-.time-core span:nth-child(1) {
-  transform: translateX(-10px);
-}
-
-.time-core span:nth-child(3) {
-  transform: translateX(10px);
-}
+.time-core span:nth-child(1) { transform: translateX(-10px); }
+.time-core span:nth-child(3) { transform: translateX(10px); }
 
 .world-line {
   width: min(74vw, 900px);
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.28), transparent);
-  opacity: 0.34;
+  background: linear-gradient(90deg, transparent, rgb(43 63 199 / 0.16), transparent);
+  opacity: 0.42;
 }
 
-.world-line-one {
-  transform: translate(-50%, -50%) rotate(12deg);
-}
-
-.world-line-two {
-  transform: translate(-50%, -50%) rotate(-18deg);
-}
-
-.world-line-three {
-  transform: translate(-50%, -50%) rotate(38deg);
-}
+.world-line-one { transform: translate(-50%, -50%) rotate(12deg); }
+.world-line-two { transform: translate(-50%, -50%) rotate(-18deg); }
+.world-line-three { transform: translate(-50%, -50%) rotate(38deg); }
 
 @keyframes drift-orbit {
-  0%,
-  100% {
-    transform: translate(-50%, -50%) rotate(-4deg) scale(1);
-  }
-
-  50% {
-    transform: translate(-50%, -50%) rotate(4deg) scale(1.03);
-  }
+  0%, 100% { transform: translate(-50%, -50%) rotate(-4deg) scale(1); }
+  50% { transform: translate(-50%, -50%) rotate(4deg) scale(1.03); }
 }
 
 @keyframes breathe-orbit {
-  0%,
-  100% {
-    opacity: 0.56;
-    transform: translate(-50%, -50%) scale(0.96);
-  }
-
-  50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.05);
-  }
+  0%, 100% { opacity: 0.56; transform: translate(-50%, -50%) scale(0.96); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
 }
 
 @keyframes pulse-core {
-  0%,
-  100% {
-    filter: brightness(0.96);
-    transform: translate(-50%, -50%) scale(0.96);
-  }
-
-  50% {
-    filter: brightness(1.18);
-    transform: translate(-50%, -50%) scale(1.04);
-  }
+  0%, 100% { filter: brightness(0.98); transform: translate(-50%, -50%) scale(0.96); }
+  50% { filter: brightness(1.08); transform: translate(-50%, -50%) scale(1.04); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
+  html { scroll-behavior: auto; }
   .time-orbit,
-  .time-core {
-    animation: none;
-  }
+  .time-core { animation: none; }
 }
