@@ -1,3 +1,5 @@
+import HeroTransferScene from "./HeroTransferScene";
+
 const principles = [
   {
     title: "Time as contribution",
@@ -264,6 +266,36 @@ export default function App() {
             </div>
           </div>
         </Section>
+
+        {/* LULLABY — TEMPOSYSTEM as a living flow (illustration, dark band) */}
+        <section
+          id="lullaby"
+          className="relative overflow-hidden text-white"
+          style={{ background: "linear-gradient(160deg,#1b2a55 0%,#3a2a78 45%,#6d3a9e 100%)" }}
+        >
+          <div className="relative z-10 mx-auto flex max-w-[1120px] flex-col items-center px-6 py-20 text-center md:px-10 md:py-28">
+            <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-white/55">
+              The infrastructure, in motion
+            </p>
+            <h2 className="text-[clamp(2rem,5vw,3.4rem)] font-bold leading-[1.05] tracking-tight">
+              TEMPOSYSTEM
+            </h2>
+
+            <p className="source-equation" aria-label="1 second equals 1 mana" style={{ marginTop: "1rem" }}>
+              <span className="eq-part eq-time">1&nbsp;second</span>
+              <span className="eq-sign">=</span>
+              <span className="eq-part eq-mana">1&nbsp;mana</span>
+            </p>
+
+            {/* Module LULLABY — butterfly-comet + time transfer counters */}
+            <HeroTransferScene />
+
+            <p className="max-w-xl text-[15px] leading-[1.8] text-white/70">
+              Every hour given becomes a measurable, remembered energy that flows
+              from hand to hand. Mana Time Bank turns it into civic value.
+            </p>
+          </div>
+        </section>
 
         <Section eyebrow="First implementation" title="MANA France starts the territorial path">
           <div className="grid gap-6 lg:grid-cols-2">
