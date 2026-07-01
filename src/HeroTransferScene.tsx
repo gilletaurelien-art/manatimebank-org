@@ -32,9 +32,11 @@ const COMET = Array.from({ length: 18 }, (_, i) => {
 export default function HeroTransferScene({
   giverLabel = "Giver",
   receiverLabel = "Receiver",
+  pure = false,
 }: {
   giverLabel?: string;
   receiverLabel?: string;
+  pure?: boolean;
 } = {}) {
   const [elapsed, setElapsed] = useState(0);
   const moduleRef = useRef<HTMLDivElement>(null);
@@ -184,16 +186,21 @@ export default function HeroTransferScene({
         aria-hidden="true"
       />
 
-      {/* Couche 3 — Compteurs HTML, calés au cœur de chaque aile */}
-      <div className="hts-counter hts-counter-left">
-        <span className="hts-clock hts-amber">{fmt(remaining)}</span>
-        <span className="hts-mana"><span className="hts-role">{giverLabel}</span>−{given}<span className="hts-unit-mana hts-unit-d">MANA</span></span>
-      </div>
+      {/* Couche 3 — Compteurs HTML, calés au cœur de chaque aile.
+          Masqués en mode « LULLABY pure » (papillon-comète seul). */}
+      {!pure && (
+        <>
+          <div className="hts-counter hts-counter-left">
+            <span className="hts-clock hts-amber">{fmt(remaining)}</span>
+            <span className="hts-mana"><span className="hts-role">{giverLabel}</span>−{given}<span className="hts-unit-mana hts-unit-d">MANA</span></span>
+          </div>
 
-      <div className="hts-counter hts-counter-right">
-        <span className="hts-clock hts-green">{fmt(given)}</span>
-        <span className="hts-mana"><span className="hts-role">{receiverLabel}</span>+{given}<span className="hts-unit-mana hts-unit-r">MANA</span></span>
-      </div>
+          <div className="hts-counter hts-counter-right">
+            <span className="hts-clock hts-green">{fmt(given)}</span>
+            <span className="hts-mana"><span className="hts-role">{receiverLabel}</span>+{given}<span className="hts-unit-mana hts-unit-r">MANA</span></span>
+          </div>
+        </>
+      )}
     </div>
   );
 }
