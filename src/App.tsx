@@ -408,30 +408,29 @@ export default function App() {
           </div>
         </Section>
 
-        {/* LULLABY — TEMPOSYSTEM as a living flow (illustration, dark band) */}
+        {/* LULLABY pure — papillon-comète seul sur fond natif clair (relief, sans halo) */}
         <section
           id="lullaby"
-          className="relative overflow-hidden text-white"
-          style={{ background: "linear-gradient(160deg,#1b2a55 0%,#3a2a78 45%,#6d3a9e 100%)" }}
+          className="relative overflow-hidden bg-surface text-ink"
         >
           <div className="relative z-10 mx-auto flex max-w-[1120px] flex-col items-center px-6 py-20 text-center md:px-10 md:py-28">
-            <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-white/55">
+            <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-ink-muted">
               {t.lullaby.eyebrow[lang]}
             </p>
-            <h2 className="text-[clamp(2rem,5vw,3.4rem)] font-bold leading-[1.05] tracking-tight">
+            <h2 className="text-[clamp(2rem,5vw,3.4rem)] font-bold leading-[1.05] tracking-tight text-ink">
               TEMPOSYSTEM
             </h2>
 
-            <p className="source-equation" aria-label="1 second equals 1 mana" style={{ marginTop: "1rem" }}>
+            {/* LULLABY pure — papillon-comète seul (sans compteurs) : pièce centrale */}
+            <HeroTransferScene pure />
+
+            <p className="source-equation" aria-label="1 second equals 1 mana" style={{ marginTop: "0.25rem" }}>
               <span className="eq-part eq-time">{t.lullaby.equationTime[lang]}</span>
               <span className="eq-sign">=</span>
               <span className="eq-part eq-mana">{t.lullaby.equationMana[lang]}</span>
             </p>
 
-            {/* Module LULLABY — butterfly-comet + time transfer counters */}
-            <HeroTransferScene giverLabel={t.lullaby.giver[lang]} receiverLabel={t.lullaby.receiver[lang]} />
-
-            <p className="max-w-xl text-[15px] leading-[1.8] text-white/70">
+            <p className="mt-5 max-w-xl text-[15px] leading-[1.8] text-ink-muted">
               {t.lullaby.body[lang]}
             </p>
           </div>
