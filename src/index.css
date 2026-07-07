@@ -85,18 +85,6 @@ a {
     linear-gradient(180deg, #FFFFFF 0%, #F7F8FA 100%);
 }
 
-.mana-wallpaper::before {
-  position: absolute;
-  inset: 0;
-  content: "";
-  background-image: url('/Logo_MANA_Symbol_logo.png');
-  background-repeat: no-repeat;
-  background-position: right -90px center;
-  background-size: min(58vw, 620px);
-  opacity: 0.055;
-  pointer-events: none;
-}
-
 .mana-wallpaper::after {
   position: absolute;
   inset: 0;
@@ -169,6 +157,16 @@ a {
 
 .mana-wallpaper-core span {
   display: none;
+}
+
+/* Logo au coeur — enfant du core animé : il hérite du pulse (brillance + échelle)
+   et rayonne donc exactement au même rythme que le centre lumineux. */
+.mana-wallpaper-core-logo {
+  width: 62%;
+  height: 62%;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 16px rgb(192 64 232 / 0.35)) drop-shadow(0 0 34px rgb(43 63 199 / 0.22));
 }
 
 .mana-world-line {

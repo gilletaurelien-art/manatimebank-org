@@ -240,6 +240,7 @@ function ManaWallpaper() {
       <div className="mana-wallpaper-orbit mana-wallpaper-orbit-two" />
       <div className="mana-wallpaper-orbit mana-wallpaper-orbit-three" />
       <div className="mana-wallpaper-core">
+        <img src="/Logo_MANA_Symbol_logo.png" alt="" className="mana-wallpaper-core-logo" />
         <span />
         <span />
         <span />
