@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import HeroTransferScene from "./HeroTransferScene";
+import ContactSection from "./ContactSection";
 
 type Lang = "en" | "fr";
 
@@ -476,6 +477,7 @@ export default function App() {
             </div>
           </div>
         </Section>
+        <ContactSection lang={lang} subject="Message via manatimebank.org" />
       </main>
 
       <footer className="border-t border-surface-border bg-surface px-6 py-10 md:px-10">
