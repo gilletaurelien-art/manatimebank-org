@@ -336,37 +336,7 @@ a {
    au parsing par le pipeline PostCSS de ce projet.) */
 #lullaby .hts-module {
   position: relative;
-  width: min(92vw, 680px);
-  height: calc(min(92vw, 680px) * 0.9306);
+  width: min(80vw, 460px);
+  height: calc(min(80vw, 460px) * 0.9306);
   margin: 0 auto;
-}
-
-/* Fond natif (clair) : équation agrandie, signe « = » assombri (sinon blanc
-   invisible), halos d'équation retirés. */
-#lullaby .source-equation {
-  font-size: clamp(24px, 4.2vw, 50px);
-}
-#lullaby .eq-sign {
-  color: rgba(28, 30, 58, 0.5);
-  text-shadow: none;
-}
-#lullaby .eq-time {
-  filter: none;
-}
-#lullaby .eq-mana {
-  filter: none;
-}
-
-/* Fond natif : pas de halo coloré, mais BEAUCOUP de relief (ombres portées
-   directionnelles → bas-relief). L'ellipse lumineuse (∞ + point-comète) reste. */
-#lullaby .hts-butterfly {
-  filter:
-    drop-shadow(0 1px 0 rgba(40, 32, 82, 0.35))
-    drop-shadow(0 3px 4px rgba(46, 34, 96, 0.34))
-    drop-shadow(0 8px 12px rgba(44, 30, 100, 0.28))
-    drop-shadow(0 18px 26px rgba(40, 26, 96, 0.22))
-    drop-shadow(0 34px 52px rgba(36, 22, 90, 0.16));
-}
-#lullaby .hts-butterfly-charge {
-  filter: brightness(1.7) saturate(1.45);
 }
