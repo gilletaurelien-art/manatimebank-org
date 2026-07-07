@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import HeroTransferScene from "./HeroTransferScene";
 import ContactSection from "./ContactSection";
+import EcosystemSchema from "./EcosystemSchema";
 
 type Lang = "en" | "fr";
 
@@ -439,30 +440,8 @@ export default function App() {
         </section>
 
         <Section eyebrow={t.impl.eyebrow[lang]} title={t.impl.title[lang]}>
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div className="mana-card rounded-2xl p-8">
-              <h3 className="text-2xl font-semibold text-ink">MANA France</h3>
-              <p className="mt-5 leading-8 text-ink-muted">
-                {t.impl.franceBody[lang]}
-              </p>
-              <div className="mt-7">
-                <ExternalLink href="https://manafrance.org" variant="secondary">
-                  {t.impl.visitFrance[lang]}
-                </ExternalLink>
-              </div>
-            </div>
-            <div className="mana-card rounded-2xl p-8">
-              <h3 className="text-2xl font-semibold text-ink">MANA Bretagne</h3>
-              <p className="mt-5 leading-8 text-ink-muted">
-                {t.impl.bretagneBody[lang]}
-              </p>
-              <div className="mt-7">
-                <ExternalLink href="https://mana.bzh" variant="secondary">
-                  {t.impl.visitBzh[lang]}
-                </ExternalLink>
-              </div>
-            </div>
-          </div>
+          {/* Schéma simple de l'écosystème (remplace les cartes détaillées) */}
+          <EcosystemSchema lang={lang} />
         </Section>
 
         <Section id="governance" eyebrow={t.governance.eyebrow[lang]} title={t.governance.title[lang]}>
