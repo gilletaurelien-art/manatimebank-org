@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import HeroTransferScene from "./HeroTransferScene";
 import ContactSection from "./ContactSection";
 import EcosystemSchema from "./EcosystemSchema";
+import EcosystemBlock from "./components/EcosystemBlock";
 
 type Lang = "en" | "fr";
 
@@ -150,14 +151,6 @@ const flowSteps = [
   { en: "Trusted coordination", fr: "Coordination de confiance" },
   { en: "Collective action", fr: "Action collective" },
 ] as const;
-
-const ecosystemLinks = [
-  { label: "TEMPOSYSTEM.eu", href: "https://temposystem.eu" },
-  { label: "TEMPOSYSTEM.fr", href: "https://temposystem.fr" },
-  { label: "MANA France", href: "https://manafrance.org" },
-  { label: "MANA Bretagne", href: "https://mana.bzh" },
-  { label: "Alliance MANA", href: "https://alliancemana.org" },
-];
 
 function ExternalLink({
   href,
@@ -460,6 +453,8 @@ export default function App() {
         <ContactSection lang={lang} subject="Message via manatimebank.org" />
       </main>
 
+      <EcosystemBlock theme="light" />
+
       <footer className="border-t border-surface-border bg-surface px-6 py-10 md:px-10">
         <div className="mx-auto max-w-[1120px]">
           <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
@@ -474,19 +469,6 @@ export default function App() {
                 </p>
               </div>
             </div>
-          </div>
-          <div className="mt-8 grid gap-3 border-t border-surface-border pt-7 sm:grid-cols-2 lg:grid-cols-5">
-            {ecosystemLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="group rounded-2xl border border-surface-border bg-surface-white px-4 py-3 shadow-card transition-all duration-150 hover:-translate-y-0.5 hover:border-accent-muted hover:shadow-card-hover"
-              >
-                <span className="text-[12px] font-bold text-ink-secondary group-hover:text-accent">
-                  {link.label}
-                </span>
-              </a>
-            ))}
           </div>
         </div>
       </footer>
