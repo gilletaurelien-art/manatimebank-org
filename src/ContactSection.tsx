@@ -14,7 +14,7 @@ const COPY = {
     sub: 'Écrivez-nous — une idée, une envie de contribuer, une simple curiosité. Nous lisons tout.',
     name: 'Votre nom', email: 'Votre e-mail', msg: 'Votre message',
     send: 'Envoyer', sending: 'Envoi…',
-    ok: 'Merci ! Votre message est parti. 🌱', err: 'Oups — une erreur est survenue, réessayez.',
+    ok: 'Merci ! Votre message est envoyé. 🌱', err: 'Oups — une erreur est survenue, réessayez.',
   },
   en: {
     eyebrow: 'Contact',
