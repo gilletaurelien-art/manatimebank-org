@@ -1,14 +1,33 @@
 /**
  * EcosystemSchema — le schéma simple de l'écosystème, commun à tous les sites Mana.
- * MANAHOME (racine) → Écosystème Temposystem → 5 mondes (emoji · nom · rôle).
- * Portable : styles inline, tokens de la référence manafrance.org.
+ * MANAHOME (racine, encadré déesse) → Écosystème Temposystem → 6 mondes (icône · nom · rôle).
+ * Icônes SVG inline (zéro dépendance) ; tokens de la référence manafrance.org / mana-home-site.
  */
-const WORLDS = [
-  { emoji: '☀️', nom: 'TEMPOSYSTEM.eu', href: 'https://temposystem.eu', role: { fr: 'Le cœur', en: 'The heart' } },
-  { emoji: '🧠', nom: 'TEMPOSYSTEM.fr', href: 'https://temposystem.fr', role: { fr: "L'orchestre", en: 'The orchestra' } },
-  { emoji: '🌍', nom: 'ManaTimeBank.org', href: 'https://manatimebank.org', role: { fr: 'Le concept international', en: 'The international concept' } },
-  { emoji: '🧪', nom: 'Mana.bzh', href: 'https://mana.bzh', role: { fr: 'Le laboratoire breton', en: 'The Breton laboratory' } },
-  { emoji: '🏛', nom: 'AllianceMANA.org', href: 'https://alliancemana.org', role: { fr: 'Gouvernance & principes', en: 'Governance & principles' } },
+const WORLDS: { nom: string; href: string; role: { fr: string; en: string }; icon: JSX.Element }[] = [
+  {
+    nom: 'TEMPOSYSTEM.eu', href: 'https://temposystem.eu', role: { fr: 'Le cœur', en: 'The heart' },
+    icon: <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />,
+  },
+  {
+    nom: 'TEMPOSYSTEM.fr', href: 'https://temposystem.fr', role: { fr: "L'orchestre", en: 'The orchestra' },
+    icon: <><rect width="8" height="8" x="3" y="3" rx="2" /><path d="M7 11v4a2 2 0 0 0 2 2h4" /><rect width="8" height="8" x="13" y="13" rx="2" /></>,
+  },
+  {
+    nom: 'ManaTimeBank.org', href: 'https://manatimebank.org', role: { fr: 'Le concept international', en: 'The international concept' },
+    icon: <><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></>,
+  },
+  {
+    nom: 'Mana.bzh', href: 'https://mana.bzh', role: { fr: 'Le laboratoire breton', en: 'The Breton laboratory' },
+    icon: <><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2" /><path d="M6.453 15h11.094" /><path d="M8.5 2h7" /></>,
+  },
+  {
+    nom: 'ManaFamily.org', href: 'https://manafamily.org', role: { fr: 'Les cercles familiaux', en: 'The family circles' },
+    icon: <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></>,
+  },
+  {
+    nom: 'AllianceMANA.org', href: 'https://alliancemana.org', role: { fr: 'Gouvernance & principes', en: 'Governance & principles' },
+    icon: <><line x1="3" x2="21" y1="22" y2="22" /><line x1="6" x2="6" y1="18" y2="11" /><line x1="10" x2="10" y1="18" y2="11" /><line x1="14" x2="14" y1="18" y2="11" /><line x1="18" x2="18" y1="18" y2="11" /><polygon points="12 2 20 7 4 7" /></>,
+  },
 ];
 
 export default function EcosystemSchema({ lang = 'fr' }: { lang?: string }) {
@@ -18,14 +37,40 @@ export default function EcosystemSchema({ lang = 'fr' }: { lang?: string }) {
       <a
         href="https://manahome.org"
         style={{
-          display: 'inline-block', textDecoration: 'none', color: '#fff',
-          fontWeight: 700, fontSize: '1.05rem', letterSpacing: '0.14em',
-          padding: '0.75rem 2.1rem', borderRadius: 999,
-          background: 'linear-gradient(90deg,#2B3FC7,#C040E8)',
-          boxShadow: '0 8px 24px rgba(43,63,199,0.25)',
+          display: 'inline-flex', alignItems: 'center', gap: '1.1rem', textAlign: 'left',
+          textDecoration: 'none', background: '#fff',
+          border: '1px solid #E8EAF0', borderRadius: 20, padding: '1rem 1.6rem 1rem 1.1rem',
+          boxShadow: '0 14px 40px rgba(90,60,230,0.13)', maxWidth: 460,
         }}
       >
-        MANAHOME
+        <img
+          src="/deesse-mana.png"
+          alt="Mana, le visage de l'univers"
+          style={{
+            width: 64, height: 64, flex: 'none', borderRadius: '50%',
+            objectFit: 'cover', objectPosition: 'center',
+            background: 'linear-gradient(135deg,#f5f3ff,#ede9fe)',
+            border: '1px solid rgba(192,64,232,0.25)',
+            boxShadow: '0 0 18px rgba(124,77,255,0.25)',
+          }}
+        />
+        <span style={{ display: 'block' }}>
+          <span style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <span style={{ fontWeight: 700, fontSize: '1rem', letterSpacing: '0.14em', color: '#0B1220' }}>MANAHOME.org</span>
+            <span style={{ fontSize: '0.66rem', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 700, color: '#7c3aed' }}>
+              {l === 'en' ? 'The guide' : "L'assistance"}
+            </span>
+          </span>
+          <span style={{
+            display: 'block', marginTop: '0.2rem', fontStyle: 'italic', fontSize: '0.88rem', lineHeight: 1.5,
+            background: 'linear-gradient(110deg,#2B3FC7,#8B35D6,#C040E8)',
+            WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
+          }}>
+            {l === 'en'
+              ? '“Making care visible, lasting and transmissible.”'
+              : '« Rendre le soin visible, durable et transmissible. »'}
+          </span>
+        </span>
       </a>
       <div style={{ fontSize: '1.2rem', color: '#C040E8', opacity: 0.6, margin: '0.6rem 0' }}>▼</div>
       <div style={{ position: 'relative', border: '1px dashed rgba(43,63,199,0.35)', borderRadius: 20, padding: '1.7rem 1.1rem 1.1rem', background: 'rgba(43,63,199,0.02)' }}>
@@ -43,8 +88,15 @@ export default function EcosystemSchema({ lang = 'fr' }: { lang?: string }) {
               border: '1px solid #E8EAF0', borderRadius: 14, padding: '1rem 0.8rem',
               transition: 'transform 0.25s, border-color 0.25s',
             }}>
-              <span style={{ display: 'block', fontSize: '1.45rem', marginBottom: '0.3rem' }}>{w.emoji}</span>
-              <span style={{ display: 'block', fontWeight: 700, fontSize: '0.92rem', color: '#0B1220' }}>{w.nom}</span>
+              <span style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.45rem' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B35D6" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  {w.icon}
+                </svg>
+              </span>
+              <span style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.12em', color: '#0B1220' }}>
+                {w.nom.slice(0, w.nom.lastIndexOf('.')).toUpperCase()}
+                <span style={{ textTransform: 'lowercase' }}>{w.nom.slice(w.nom.lastIndexOf('.'))}</span>
+              </span>
               <span style={{ display: 'block', fontSize: '0.78rem', color: '#6B7280', marginTop: '0.2rem' }}>{w.role[l]}</span>
             </a>
           ))}

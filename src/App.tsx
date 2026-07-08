@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import HeroTransferScene from "./HeroTransferScene";
 import ContactSection from "./ContactSection";
 import EcosystemSchema from "./EcosystemSchema";
-import EcosystemBlock from "./components/EcosystemBlock";
 
 type Lang = "en" | "fr";
 
@@ -486,23 +485,44 @@ export default function App() {
         <ContactSection lang={lang} subject="Message via manatimebank.org" />
       </main>
 
-      <EcosystemBlock theme="light" />
-
-      <footer className="border-t border-surface-border bg-surface px-6 py-10 md:px-10">
+      <footer className="border-t border-surface-border bg-surface px-6 py-9 md:px-10">
         <div className="mx-auto max-w-[1120px]">
-          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-3.5">
-              <img src="/Logo_MANA_Symbol_logo.png" alt="MANA" className="h-6 w-6 object-contain opacity-70" />
-              <div>
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-ink">
-                  Mana Time Bank
-                </p>
-                <p className="mt-0.5 text-[11px] text-ink-faint">
-                  {t.footer.tagline[lang]}
-                </p>
-              </div>
+          <div className="flex items-center gap-3.5">
+            <img src="/Logo_MANA_Symbol_logo.png" alt="MANA" className="h-6 w-6 object-contain opacity-70" />
+            <div>
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-ink">Mana Time Bank</p>
+              <p className="mt-0.5 text-[11px] text-ink-faint">{t.footer.tagline[lang]}</p>
             </div>
           </div>
+
+          {/* Écosystème — une ligne */}
+          <nav
+            aria-label={lang === "fr" ? "L'univers MANA" : "The MANA universe"}
+            className="mt-7 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-surface-border pt-6 text-[12px] text-ink-faint"
+          >
+            <a href="https://manahome.org" className="font-bold text-ink-secondary transition-colors hover:text-accent">
+              ManaHome
+            </a>
+            <span className="text-accent-muted">›</span>
+            {[
+              ["https://temposystem.eu", "TempoSystem.eu"],
+              ["https://temposystem.fr", "TempoSystem.fr"],
+              ["https://manafrance.org", "MANA France"],
+              ["https://mana.bzh", "Mana.bzh"],
+              ["https://manafamily.org", "ManaFamily"],
+              ["https://alliancemana.org", "Alliance MANA"],
+            ].map(([href, label], i) => (
+              <span key={href} className="flex items-center gap-2">
+                {i > 0 && <span className="text-surface-border">·</span>}
+                <a href={href} className="transition-colors hover:text-accent">{label}</a>
+              </span>
+            ))}
+          </nav>
+
+          <p className="mt-5 text-[11px] text-ink-faint">
+            © {new Date().getFullYear()} — {lang === "fr" ? "L'univers MANA" : "The MANA universe"} ·{" "}
+            <a href="https://manahome.org" className="transition-colors hover:text-accent">MANAHOME.org</a>
+          </p>
         </div>
       </footer>
     </div>
