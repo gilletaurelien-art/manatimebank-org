@@ -308,8 +308,8 @@ export default function App() {
               <p className="text-xs font-semibold uppercase tracking-[0.36em] text-accent/80">
                 {t.hero.eyebrow[lang]}
               </p>
-              <h1 className="mt-6 text-[clamp(2.7rem,7vw,5.5rem)] font-bold leading-[1.04] tracking-[-0.02em] text-ink">
-                Mana Time Bank
+              <h1 className="mt-6 text-[clamp(2.7rem,7vw,5.5rem)] font-bold leading-[1.04] tracking-[-0.02em] gradient-text">
+                MANATIMEBANK
               </h1>
               <p className="mt-6 max-w-3xl text-[clamp(1.05rem,2vw,1.3rem)] leading-snug text-ink-secondary italic">
                 {t.hero.tagline[lang]}
