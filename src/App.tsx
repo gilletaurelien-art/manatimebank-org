@@ -292,6 +292,9 @@ export default function App() {
               <a className="transition-colors duration-150 hover:text-ink" href="#governance">
                 {t.nav.governance[lang]}
               </a>
+              <a className="font-semibold text-accent transition-colors duration-150 hover:text-accent-hover" href="#livre-blanc">
+                {lang === "fr" ? "Livre blanc" : "White paper"}
+              </a>
             </div>
             <LangToggle lang={lang} setLang={setLang} />
           </div>
@@ -446,6 +449,36 @@ export default function App() {
             <div className="mt-8">
               <ExternalLink href="https://alliancemana.org" variant="primary">
                 {t.governance.visit[lang]}
+              </ExternalLink>
+            </div>
+          </div>
+        </Section>
+
+        <Section
+          id="livre-blanc"
+          eyebrow={lang === "fr" ? "Le texte de référence" : "The founding document"}
+          title={lang === "fr" ? "Le livre blanc" : "The white paper"}
+        >
+          <div className="rounded-2xl border border-accent-muted bg-gradient-to-br from-accent-light to-surface-white p-8 sm:p-10">
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-ink-muted">
+              ManaTimeBank × TempoSystem · v1.1 {lang === "fr" ? "· Édition française" : "· French edition"}
+            </p>
+            <h3 className="mt-2 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+              {lang === "fr"
+                ? "Le temps donné — le concept et son inscription"
+                : "Given time — the concept and its inscription"}
+            </h3>
+            <p className="mt-4 max-w-3xl text-lg leading-8 text-ink-secondary">
+              {lang === "fr"
+                ? "Le document fondateur : ce que le PIB ne voit pas, la trace plutôt que la créance, le diptyque du soleil et de la lune, un nouvel outil de lecture des sociétés — et comment on l'inscrit, concrètement. Gratuit, sourcé, faisable."
+                : "The founding document: what GDP cannot see, the trace rather than the claim, the diptych of sun and moon, a new way to read societies — and how it is inscribed, concretely. (Currently in French; English edition to come.)"}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <ExternalLink href="/livre-blanc.html" variant="primary">
+                {lang === "fr" ? "Lire en ligne →" : "Read online →"}
+              </ExternalLink>
+              <ExternalLink href="/Le-temps-donne-Livre-blanc-v1.1.pdf" variant="secondary">
+                {lang === "fr" ? "Télécharger le PDF" : "Download PDF"}
               </ExternalLink>
             </div>
           </div>
