@@ -275,7 +275,7 @@ export default function App() {
         >
           <a href="#top" className="flex items-center gap-3 text-[13px] font-bold uppercase tracking-[0.18em] text-ink">
             <img src="/Logo_MANA_Symbol_logo.png" alt="MANA" className="h-7 w-7 object-contain" />
-            Mana Time Bank
+            MANA<span className="font-normal lowercase">timebank</span>
           </a>
           <div className="flex items-center gap-7">
             <div className="hidden items-center gap-7 text-[13px] text-ink-muted md:flex">
@@ -309,7 +309,7 @@ export default function App() {
                 {t.hero.eyebrow[lang]}
               </p>
               <h1 className="mt-6 text-[clamp(2.7rem,7vw,5.5rem)] font-bold leading-[1.04] tracking-[-0.02em] gradient-text">
-                MANATIMEBANK
+                MANA<span className="font-normal lowercase">timebank</span>
               </h1>
               <p className="mt-6 max-w-3xl text-[clamp(1.05rem,2vw,1.3rem)] leading-snug text-ink-secondary italic">
                 {t.hero.tagline[lang]}
