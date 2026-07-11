@@ -3,8 +3,12 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+// Prérendu (react-snap) : hydrate le DOM statique si présent, sinon rend normalement.
+const rootElement = document.getElementById("root") as HTMLElement;
+const app = (
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
 );
+if (rootElement.hasChildNodes()) ReactDOM.hydrateRoot(rootElement, app);
+else ReactDOM.createRoot(rootElement).render(app);

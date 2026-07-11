@@ -11,7 +11,7 @@ function detectLang(): Lang {
   if (typeof window === "undefined") return "en";
   const stored = window.localStorage.getItem(STORAGE_KEY);
   if (stored === "en" || stored === "fr") return stored;
-  return navigator.language?.toLowerCase().startsWith("fr") ? "fr" : "en";
+  return "en"; // defaut deterministe (matche lang=en) - pas de detection navigator (prerendu)
 }
 
 const t = {
