@@ -1,0 +1,64 @@
+# Prérendu (Playwright) + déploiement Vercel prébuild.
+#
+# Pourquoi : le prérendu a besoin d'un vrai navigateur, indisponible dans le
+# build Vercel. On le fait donc dans ce runner Ubuntu (navigateur OK), puis on
+# pousse le résultat déjà construit à Vercel (`vercel deploy --prebuilt`).
+#
+# PRÉREQUIS (voir .github/PRERENDER-SETUP.md) :
+#   • Secrets repo : VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID
+#   • Désactiver l'auto-déploiement Git de Vercel pour ce projet
+#     (sinon Vercel déploie aussi, en version NON prérendue).
+
+name: Prérendu & déploiement
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: prerender-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      # Navigateur pour le prérendu (Playwright) + libs système.
+      - run: npx playwright install --with-deps chromium
+
+      - name: Installer la CLI Vercel
+        run: npm i -g vercel@latest
+
+      # Récupère les réglages du projet (framework, redirects, etc.).
+      - name: Vercel pull
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      # `vercel build` lance `npm run build` (buildCommand du vercel.json) →
+      # vite build + postbuild prerender (le navigateur est installé ici).
+      - name: Build + prérendu
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+      - name: Déployer (prébuild) en production
+        run: vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
