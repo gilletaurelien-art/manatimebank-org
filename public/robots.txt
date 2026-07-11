@@ -1,2 +1,5 @@
+# https://manatimebank.org
 User-agent: *
 Allow: /
+
+Sitemap: https://manatimebank.org/sitemap.xml
