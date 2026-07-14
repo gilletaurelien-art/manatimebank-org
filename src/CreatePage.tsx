@@ -92,10 +92,12 @@ function CreateWizard({ lang }: { lang: Lang }) {
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
+  const [resultSlug, setResultSlug] = useState(""); // slug réel renvoyé par le control plane (peut être suffixé)
 
   const set = (patch: Partial<State>) => setV((prev) => ({ ...prev, ...patch }));
 
   const slug = useMemo(() => slugify(v.spaceName || v.orgName) || "votre-espace", [v.spaceName, v.orgName]);
+  const finalSlug = resultSlug || slug;
   const sizeInfo = C.sizes.find((s) => s.key === v.size);
 
   const stepValid = [
@@ -109,9 +111,37 @@ function CreateWizard({ lang }: { lang: Lang }) {
     set({ langs: v.langs.includes(l) ? v.langs.filter((x) => x !== l) : [...v.langs, l] });
   }
 
-  async function submit() {
-    setSending(true);
-    setError("");
+  // Provisioning réel si le control plane est configuré (VITE_SUPABASE_URL +
+  // VITE_SUPABASE_ANON_KEY) ; sinon repli sur la demande qualifiée (Web3Forms).
+  // Le site fonctionne dans les deux cas et « s'améliore » dès que l'env est posé.
+  const SUPA_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+  const SUPA_ANON = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
+
+  async function provisionReal(): Promise<boolean> {
+    const res = await fetch(`${SUPA_URL}/functions/v1/provision-space`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", apikey: SUPA_ANON!, Authorization: `Bearer ${SUPA_ANON}` },
+      body: JSON.stringify({
+        botcheck: "",
+        orgType: v.orgType,
+        orgName: v.orgName,
+        spaceName: v.spaceName,
+        langs: v.langs,
+        size: v.size,
+        contactName: v.contactName,
+        email: v.email,
+        message: v.message,
+      }),
+    });
+    const r = await res.json().catch(() => null);
+    if (res.ok && r?.ok) {
+      if (r.slug) setResultSlug(r.slug);
+      return true;
+    }
+    return false;
+  }
+
+  async function submitLead(): Promise<boolean> {
     const payload = {
       access_key: ACCESS_KEY,
       subject: `Nouvelle demande d'espace temps — ${v.orgName || slug}`,
@@ -127,14 +157,21 @@ function CreateWizard({ lang }: { lang: Lang }) {
       email: v.email,
       message: v.message || "—",
     };
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const r = await res.json().catch(() => null);
+    return !!r?.success;
+  }
+
+  async function submit() {
+    setSending(true);
+    setError("");
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const r = await res.json();
-      if (r.success) setDone(true);
+      const ok = SUPA_URL && SUPA_ANON ? await provisionReal() : await submitLead();
+      if (ok) setDone(true);
       else setError(C.errMsg[lang]);
     } catch {
       setError(C.errMsg[lang]);
@@ -159,7 +196,7 @@ function CreateWizard({ lang }: { lang: Lang }) {
           <p className="mt-4 text-[15px] leading-7 text-ink-muted">{C.okBody[lang]}</p>
           <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-surface-border bg-surface px-4 py-1.5 text-[13px] font-medium text-ink-secondary">
             <span className="h-2 w-2 rounded-full bg-gradient-to-r from-[#2B3FC7] to-[#C040E8]" />
-            {slug}.manatimebank.org
+            {finalSlug}.manatimebank.org
           </div>
           <div className="mt-8">
             <a href="/" className="inline-flex items-center justify-center rounded-lg gradient-btn px-6 py-3 text-sm font-semibold text-white shadow-card">

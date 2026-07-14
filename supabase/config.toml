@@ -1,0 +1,9 @@
+# MANAtimebank — configuration Supabase (control plane)
+# project_id = à renseigner après création du projet Supabase « manatimebank ».
+project_id = "manatimebank"
+
+# provision-space est un endpoint PUBLIC (formulaire /creer, pas de session) :
+# on désactive la vérification JWT à la passerelle. La sécurité repose sur la
+# validation des entrées + honeypot dans la fonction (⚠️ ajouter captcha + rate-limit).
+[functions.provision-space]
+verify_jwt = false
