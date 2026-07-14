@@ -205,7 +205,7 @@ export function SiteHeader({ lang, setLang }: { lang: Lang; setLang: (l: Lang) =
           >
             {nav.login[lang]}
           </a>
-          <Cta href="/#contact" variant="primary" className="hidden px-4 py-2 text-[13px] sm:inline-flex">
+          <Cta href="/creer" variant="primary" className="hidden px-4 py-2 text-[13px] sm:inline-flex">
             {nav.create[lang]}
           </Cta>
           <LangToggle lang={lang} setLang={setLang} />
@@ -235,7 +235,7 @@ export function SiteHeader({ lang, setLang }: { lang: Lang; setLang: (l: Lang) =
                 {l.label[lang]}
               </a>
             ))}
-            <Cta href="/#contact" variant="primary" className="mt-2">
+            <Cta href="/creer" variant="primary" className="mt-2">
               {nav.create[lang]}
             </Cta>
           </div>

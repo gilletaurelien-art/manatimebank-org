@@ -13,7 +13,7 @@ export const nav = {
   docs: { en: "Documentation", fr: "Documentation" },
   about: { en: "About", fr: "À propos" },
   login: { en: "Log in", fr: "Connexion" },
-  create: { en: "Create a time bank", fr: "Créer une banque de temps" },
+  create: { en: "Create your time space", fr: "Créer votre espace temps" },
   demo: { en: "Request a demo", fr: "Demander une démonstration" },
 } satisfies Record<string, T>;
 
@@ -851,4 +851,77 @@ export const aboutPage = {
     { name: "Alliance MANA", desc: { en: "Steward of the model's ethics.", fr: "Gardienne de l'éthique du modèle." }, href: "https://alliancemana.org" },
     { name: "ManaHome", desc: { en: "The mother house of the universe.", fr: "La maison mère de l'univers." }, href: "https://manahome.org" },
   ],
+} as const;
+
+// ---------------- Créer votre espace temps (wizard) ----------------
+export const createSpace = {
+  eyebrow: { en: "Get started", fr: "Commencer" },
+  title: { en: "Create your time space", fr: "Créer votre espace temps" },
+  subtitle: {
+    en: "Four short steps to shape your space. We'll set it up with you and open it within days.",
+    fr: "Quatre étapes courtes pour dessiner votre espace. Nous le mettons en place avec vous et l'ouvrons sous quelques jours.",
+  },
+  step: { en: "Step", fr: "Étape" },
+  of: { en: "of", fr: "sur" },
+  back: { en: "Back", fr: "Retour" },
+  next: { en: "Continue", fr: "Continuer" },
+  submit: { en: "Create my time space", fr: "Créer mon espace temps" },
+  sending: { en: "Sending…", fr: "Envoi…" },
+  summaryTitle: { en: "Your time space", fr: "Votre espace temps" },
+  planLabel: { en: "Suggested plan", fr: "Formule suggérée" },
+  required: { en: "This field is required.", fr: "Ce champ est requis." },
+
+  // Étape 1 — organisation
+  s1Title: { en: "Who are you?", fr: "Qui êtes-vous ?" },
+  s1Body: { en: "Tell us about your organization.", fr: "Parlez-nous de votre organisation." },
+  orgTypeLabel: { en: "Type of organization", fr: "Type d'organisation" },
+  orgTypes: [
+    { en: "Association", fr: "Association" },
+    { en: "Local government", fr: "Collectivité" },
+    { en: "Company", fr: "Entreprise" },
+    { en: "University", fr: "Université" },
+    { en: "Institution", fr: "Établissement" },
+    { en: "Network", fr: "Réseau" },
+    { en: "Foundation", fr: "Fondation" },
+    { en: "Other", fr: "Autre" },
+  ] as { en: string; fr: string }[],
+  orgNameLabel: { en: "Organization name", fr: "Nom de l'organisation" },
+  orgNamePlaceholder: { en: "e.g. Les Restos du Cœur", fr: "ex. Les Restos du Cœur" },
+
+  // Étape 2 — espace
+  s2Title: { en: "Name your space", fr: "Nommez votre espace" },
+  s2Body: { en: "This is how your community will find you.", fr: "C'est ainsi que votre communauté vous trouvera." },
+  spaceNameLabel: { en: "Space name", fr: "Nom de l'espace" },
+  spaceNamePlaceholder: { en: "e.g. Temps Solidaire", fr: "ex. Temps Solidaire" },
+  addressLabel: { en: "Web address", fr: "Adresse web" },
+  langsLabel: { en: "Languages", fr: "Langues" },
+  langs: [
+    { en: "French", fr: "Français" },
+    { en: "English", fr: "English" },
+    { en: "Brezhoneg", fr: "Brezhoneg" },
+    { en: "Other", fr: "Autre" },
+  ] as { en: string; fr: string }[],
+
+  // Étape 3 — communauté
+  s3Title: { en: "How big is your community?", fr: "Quelle est la taille de votre communauté ?" },
+  s3Body: { en: "Active members — those who give or receive time. This sets your plan.", fr: "Membres actifs — ceux qui donnent ou reçoivent du temps. Cela définit votre formule." },
+  sizes: [
+    { key: "xs", label: { en: "Under 10", fr: "Moins de 10" }, plan: "Community", price: { en: "Free", fr: "Gratuit" } },
+    { key: "sm", label: { en: "10 to 100", fr: "10 à 100" }, plan: "Organisation", price: { en: "€99/mo", fr: "99 €/mois" } },
+    { key: "md", label: { en: "100 to 500", fr: "100 à 500" }, plan: "Territoire", price: { en: "€399/mo", fr: "399 €/mois" } },
+    { key: "lg", label: { en: "500+", fr: "500 et plus" }, plan: "Réseau / White Label", price: { en: "Custom", fr: "Sur mesure" } },
+  ] as { key: string; label: { en: string; fr: string }; plan: string; price: { en: string; fr: string } }[],
+
+  // Étape 4 — contact
+  s4Title: { en: "Where do we reach you?", fr: "Où vous joindre ?" },
+  s4Body: { en: "We'll get back within one business day.", fr: "Nous revenons vers vous sous un jour ouvré." },
+  contactNameLabel: { en: "Your name", fr: "Votre nom" },
+  emailLabel: { en: "Your email", fr: "Votre e-mail" },
+  msgLabel: { en: "Anything we should know? (optional)", fr: "Un mot pour nous ? (facultatif)" },
+
+  // Succès
+  okTitle: { en: "Your time space is on its way", fr: "Votre espace temps est en préparation" },
+  okBody: { en: "We received your request and will set up your space with you shortly. Meanwhile, explore the platform.", fr: "Nous avons reçu votre demande et mettons votre espace en place avec vous très vite. En attendant, explorez la plateforme." },
+  okCta: { en: "Back to home", fr: "Retour à l'accueil" },
+  errMsg: { en: "Something went wrong — please retry or email contact@manahome.org.", fr: "Une erreur est survenue — réessayez ou écrivez à contact@manahome.org." },
 } as const;

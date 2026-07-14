@@ -53,7 +53,7 @@ export default function App() {
                 {hero.subtitle[lang]}
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Cta href="#contact" variant="primary">
+                <Cta href="/creer" variant="primary">
                   {nav.create[lang]}
                 </Cta>
                 <Cta href="#contact" variant="secondary">
@@ -368,7 +368,7 @@ export default function App() {
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-ink-muted">{finalCta.body[lang]}</p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <Cta href="#contact" variant="primary">
+              <Cta href="/creer" variant="primary">
                 {nav.create[lang]}
               </Cta>
               <Cta href="#contact" variant="secondary">

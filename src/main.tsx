@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import SolutionPage, { solutionSlugs } from "./SolutionPage";
 import { FeaturesPage, PricingPage, DocsPage, AboutPage } from "./pages";
+import CreatePage from "./CreatePage";
 import "./index.css";
 
 // Routeur minimal par pathname (pas de dépendance). Chaque route est prérendue
@@ -15,6 +16,7 @@ function route(): React.ReactElement {
   if (path === "/tarifs") return <PricingPage />;
   if (path === "/documentation") return <DocsPage />;
   if (path === "/a-propos") return <AboutPage />;
+  if (path === "/creer") return <CreatePage />;
   return <App />;
 }
 

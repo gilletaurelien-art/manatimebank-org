@@ -62,8 +62,8 @@ export default function SolutionPage({ slug }: { slug: string }) {
               {detail.tagline[lang]}
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <Cta href="/#contact" variant="primary">
-                {lang === "fr" ? "Créer votre espace" : "Create your space"}
+              <Cta href="/creer" variant="primary">
+                {lang === "fr" ? "Créer votre espace temps" : "Create your time space"}
               </Cta>
               <Cta href="/#contact" variant="secondary">
                 {lang === "fr" ? "Demander une démonstration" : "Request a demo"}
@@ -159,8 +159,8 @@ export default function SolutionPage({ slug }: { slug: string }) {
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-ink-muted">{solutionPage.ctaBody[lang]}</p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <Cta href="/#contact" variant="primary">
-                {lang === "fr" ? "Créer une banque de temps" : "Create a time bank"}
+              <Cta href="/creer" variant="primary">
+                {lang === "fr" ? "Créer votre espace temps" : "Create your time space"}
               </Cta>
               <Cta href="/#contact" variant="secondary">
                 {lang === "fr" ? "Demander une démonstration" : "Request a demo"}

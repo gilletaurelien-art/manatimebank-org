@@ -227,11 +227,11 @@ function FinalBand({ lang }: { lang: "en" | "fr" }) {
     <section className="relative overflow-hidden text-white band-dark">
       <div className="relative z-10 mx-auto max-w-content px-6 py-16 text-center md:px-10 lg:py-20">
         <h2 className="mx-auto max-w-2xl font-display text-[clamp(1.7rem,3.4vw,2.4rem)] font-bold leading-[1.1] tracking-tight">
-          {lang === "fr" ? "Prêt à créer votre banque de temps ?" : "Ready to create your time bank?"}
+          {lang === "fr" ? "Prêt à créer votre espace temps ?" : "Ready to create your time space?"}
         </h2>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Cta href="/#contact" variant="primary">
-            {lang === "fr" ? "Créer une banque de temps" : "Create a time bank"}
+          <Cta href="/creer" variant="primary">
+            {lang === "fr" ? "Créer votre espace temps" : "Create your time space"}
           </Cta>
           <a
             href="/#contact"
