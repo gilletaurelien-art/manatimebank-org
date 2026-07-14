@@ -170,7 +170,18 @@ function CreateWizard({ lang }: { lang: Lang }) {
     setSending(true);
     setError("");
     try {
-      const ok = SUPA_URL && SUPA_ANON ? await provisionReal() : await submitLead();
+      // Provisioning réel si configuré ; en cas d'échec (back-end pas encore
+      // déployé, erreur transitoire…) on retombe sur le lead Web3Forms — le
+      // formulaire aboutit toujours et on ne perd jamais la demande.
+      let ok = false;
+      if (SUPA_URL && SUPA_ANON) {
+        try {
+          ok = await provisionReal();
+        } catch {
+          ok = false;
+        }
+      }
+      if (!ok) ok = await submitLead();
       if (ok) setDone(true);
       else setError(C.errMsg[lang]);
     } catch {
