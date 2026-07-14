@@ -11,13 +11,19 @@
     min-width: 320px;
     min-height: 100vh;
     margin: 0;
-    font-family: 'Philosopher', Georgia, serif;
+    /* Corps & UI en Inter (registre logiciel) ; titres en Philosopher via .font-display */
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     color: #0B1220;
     background: #F7F8FA;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.011em;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Philosopher', Georgia, serif;
   }
 
   ::selection {
@@ -337,4 +343,151 @@ a {
   width: min(80vw, 460px);
   height: calc(min(80vw, 460px) * 0.9306);
   margin: 0 auto;
+}
+
+/* ============================================================
+   REFONTE INFRASTRUCTURE — composants produit
+   ============================================================ */
+
+/* Puces "secteurs" du hero (Associations · Collectivités · …) */
+.sector-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid #E8EAF0;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: #3A4466;
+  white-space: nowrap;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+.sector-pill:hover { border-color: #C0C8F8; color: #0B1220; }
+
+/* Micro-label (eyebrow) uniforme */
+.eyebrow {
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #6B7280;
+}
+.eyebrow-accent {
+  background: linear-gradient(100deg, #2B3FC7 0%, #8B35D6 60%, #C040E8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* Carte solution — bord net, hover crédible */
+.solution-card {
+  position: relative;
+  border: 1px solid #E8EAF0;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 18px;
+  padding: 1.6rem;
+  box-shadow: 0 1px 3px rgba(11, 18, 32, 0.05);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  overflow: hidden;
+}
+.solution-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2B3FC7, #8B35D6, #C040E8);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+.solution-card:hover {
+  transform: translateY(-3px);
+  border-color: #C0C8F8;
+  box-shadow: 0 10px 30px -12px rgba(43, 63, 199, 0.22);
+}
+.solution-card:hover::before { transform: scaleX(1); }
+
+/* Icône ronde à dégradé subtil (fonctions, features) */
+.grad-badge {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: #2B3FC7;
+  background:
+    linear-gradient(140deg, rgba(43, 63, 199, 0.10), rgba(192, 64, 232, 0.10));
+  border: 1px solid rgba(43, 63, 199, 0.14);
+}
+
+/* ---------- Hero : territoire vivant ---------- */
+.territory {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5 / 4;
+}
+.territory svg { width: 100%; height: 100%; overflow: visible; }
+.territory-node { transform-box: fill-box; transform-origin: center; }
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.55; r: 3.2; }
+  50% { opacity: 1; r: 4.6; }
+}
+@keyframes flow-dash { to { stroke-dashoffset: -24; } }
+.territory .flow {
+  stroke-dasharray: 3 7;
+  animation: flow-dash 2.4s linear infinite;
+}
+.territory .pulse { animation: node-pulse 3.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .territory .flow, .territory .pulse { animation: none; }
+}
+
+/* ---------- Bandeau tableaux de bord (mockup logiciel) ---------- */
+.mock-window {
+  border: 1px solid #E8EAF0;
+  border-radius: 16px;
+  background: #FFFFFF;
+  box-shadow: 0 24px 60px -30px rgba(11, 18, 32, 0.28);
+  overflow: hidden;
+}
+.mock-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 14px;
+  border-bottom: 1px solid #F1F3F7;
+  background: #FBFBFD;
+}
+.mock-dot { width: 9px; height: 9px; border-radius: 9999px; }
+.mock-tab {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 7px;
+  color: #6B7280;
+  cursor: default;
+}
+.mock-tab[data-active="true"] { color: #2B3FC7; background: #EEEFFE; }
+.mock-stat-value {
+  font-family: 'Philosopher', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: #0B1220;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* Barres d'histogramme du mock */
+@keyframes bar-rise { from { transform: scaleY(0.05); } to { transform: scaleY(1); } }
+.mock-bar-fill {
+  transform-origin: bottom;
+  animation: bar-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Bande sombre CTA/foundations réutilisable */
+.band-dark {
+  background: linear-gradient(160deg, #0E1836 0%, #241a52 48%, #4a256e 100%);
 }
