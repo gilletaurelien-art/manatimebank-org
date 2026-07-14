@@ -1,530 +1,387 @@
-import { useEffect, useState } from "react";
 import HeroTransferScene from "./HeroTransferScene";
 import ContactSection from "./ContactSection";
-import EcosystemSchema from "./EcosystemSchema";
-
-type Lang = "en" | "fr";
-
-const STORAGE_KEY = "manatimebank_lang";
-
-function detectLang(): Lang {
-  if (typeof window === "undefined") return "en";
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  if (stored === "en" || stored === "fr") return stored;
-  return "en"; // defaut deterministe (matche lang=en) - pas de detection navigator (prerendu)
-}
-
-const t = {
-  nav: {
-    model: { en: "Model", fr: "Modèle" },
-    principles: { en: "Principles", fr: "Principes" },
-    governance: { en: "Governance", fr: "Gouvernance" },
-  },
-  hero: {
-    eyebrow: { en: "Open civic time infrastructure", fr: "Infrastructure civique ouverte du temps" },
-    tagline: {
-      en: "An open model for recognizing, coordinating and sharing human time.",
-      fr: "Un modèle ouvert pour reconnaître, coordonner et partager le temps humain.",
-    },
-    body: {
-      en: "Human time is one of the most precious resources we share. Mana Time Bank proposes a civic and open framework to make contributions visible, trusted and useful across communities.",
-      fr: "Le temps humain est l'une des ressources les plus précieuses que nous partageons. Mana Time Bank propose un cadre civique et ouvert pour rendre les contributions visibles, fiables et utiles entre les communautés.",
-    },
-    exploreModel: { en: "Explore the model", fr: "Explorer le modèle" },
-    discoverTempo: { en: "Discover TEMPOSYSTEM", fr: "Découvrir TEMPOSYSTEM" },
-  },
-  model: {
-    eyebrow: { en: "Concept", fr: "Concept" },
-    title: { en: "What is Mana Time Bank?", fr: "Qu'est-ce que Mana Time Bank ?" },
-    p1: {
-      en: "Mana Time Bank is not a currency, not a marketplace and not a social network. It is a conceptual model for recognizing shared time as civic value.",
-      fr: "Mana Time Bank n'est ni une monnaie, ni une place de marché, ni un réseau social. C'est un modèle conceptuel pour reconnaître le temps partagé comme une valeur civique.",
-    },
-    p2: {
-      en: "Its purpose is to help communities make human contributions visible, comparable and useful without reducing them to commercial transactions. Time remains human. Recognition makes it actionable.",
-      fr: "Son but est d'aider les communautés à rendre les contributions humaines visibles, comparables et utiles sans les réduire à des transactions commerciales. Le temps reste humain. La reconnaissance le rend actionnable.",
-    },
-    ideaLabel: { en: "The central idea", fr: "L'idée centrale" },
-    idea: {
-      en: "A shared hour can become a trusted signal for cooperation.",
-      fr: "Une heure partagée peut devenir un signal de confiance pour la coopération.",
-    },
-    ideaBody: {
-      en: "The model gives communities a common language for contribution, trust, coordination and collective action.",
-      fr: "Le modèle donne aux communautés un langage commun pour la contribution, la confiance, la coordination et l'action collective.",
-    },
-  },
-  principlesSection: {
-    eyebrow: { en: "Principles", fr: "Principes" },
-    title: { en: "A model built for civic trust", fr: "Un modèle bâti pour la confiance civique" },
-  },
-  flow: {
-    eyebrow: { en: "Collective intelligence", fr: "Intelligence collective" },
-    title: { en: "From time to collective action", fr: "Du temps à l'action collective" },
-    body: {
-      en: "The model turns scattered acts of help into readable signals. Those signals support trust. Trust enables coordination. Coordination makes collective action possible at civic scale.",
-      fr: "Le modèle transforme des actes d'entraide dispersés en signaux lisibles. Ces signaux nourrissent la confiance. La confiance permet la coordination. La coordination rend l'action collective possible à l'échelle civique.",
-    },
-  },
-  tempo: {
-    eyebrow: { en: "Infrastructure", fr: "Infrastructure" },
-    title: { en: "TEMPOSYSTEM makes coordination possible", fr: "TEMPOSYSTEM rend la coordination possible" },
-    body: {
-      en: "TEMPOSYSTEM is the open infrastructure that coordinates agents, memory, flows and decisions. Mana Time Bank defines the civic model. TEMPOSYSTEM provides the operating layer that can make the model durable, traceable and intelligent.",
-      fr: "TEMPOSYSTEM est l'infrastructure ouverte qui coordonne les agents, la mémoire, les flux et les décisions. Mana Time Bank définit le modèle civique. TEMPOSYSTEM fournit la couche opérationnelle capable de rendre le modèle durable, traçable et intelligent.",
-    },
-  },
-  lullaby: {
-    eyebrow: { en: "The infrastructure, in motion", fr: "L'infrastructure, en mouvement" },
-    equationTime: { en: "1 second", fr: "1 seconde" },
-    equationMana: { en: "1 mana", fr: "1 mana" },
-    body: {
-      en: "Every hour given becomes a measurable, remembered energy that flows from hand to hand. Mana Time Bank turns it into civic value.",
-      fr: "Chaque heure donnée devient une énergie mesurable et mémorisée qui circule de main en main. Mana Time Bank la transforme en valeur civique.",
-    },
-    giver: { en: "Giver", fr: "Donneur" },
-    receiver: { en: "Receiver", fr: "Receveur" },
-  },
-  impl: {
-    eyebrow: { en: "First implementation", fr: "Première mise en œuvre" },
-    title: { en: "MANA France starts the territorial path", fr: "MANA France ouvre la voie territoriale" },
-    franceBody: {
-      en: "MANA France will be the first territorial implementation of the Mana Time Bank model, focused on recognizing shared time, cooperation and civic contribution in a concrete national context.",
-      fr: "MANA France sera la première mise en œuvre territoriale du modèle Mana Time Bank, centrée sur la reconnaissance du temps partagé, de la coopération et de la contribution civique dans un contexte national concret.",
-    },
-    visitFrance: { en: "Visit MANA France", fr: "Visiter MANA France" },
-    bretagneBody: {
-      en: "mana.bzh is the Breton laboratory: a pilot territory for testing language, practices and community-scale cooperation before wider deployment.",
-      fr: "mana.bzh est le laboratoire breton : un territoire pilote pour éprouver le langage, les pratiques et la coopération à l'échelle communautaire avant un déploiement plus large.",
-    },
-    visitBzh: { en: "Visit mana.bzh", fr: "Visiter mana.bzh" },
-  },
-  governance: {
-    eyebrow: { en: "Governance", fr: "Gouvernance" },
-    title: { en: "A model protected by Alliance MANA", fr: "Un modèle protégé par l'Alliance MANA" },
-    body: {
-      en: "Alliance MANA is the steward of the principles, ethics and evolution of the model. Its role is to keep Mana Time Bank open, understandable and aligned with public-interest cooperation.",
-      fr: "L'Alliance MANA est la gardienne des principes, de l'éthique et de l'évolution du modèle. Son rôle est de garder Mana Time Bank ouvert, compréhensible et aligné sur la coopération d'intérêt général.",
-    },
-    visit: { en: "Visit Alliance MANA", fr: "Visiter l'Alliance MANA" },
-  },
-  footer: {
-    tagline: { en: "Open model for human time coordination.", fr: "Modèle ouvert pour la coordination du temps humain." },
-  },
-} as const;
-
-const principles = [
-  {
-    title: { en: "Time as contribution", fr: "Le temps comme contribution" },
-    body: {
-      en: "Every hour given to help, teach, care, organize or protect can be recognized as civic value.",
-      fr: "Chaque heure donnée pour aider, enseigner, prendre soin, organiser ou protéger peut être reconnue comme valeur civique.",
-    },
-  },
-  {
-    title: { en: "Trust before scale", fr: "La confiance avant l'échelle" },
-    body: {
-      en: "Mana Time Bank favors clear rules, local legitimacy and traceable decisions before growth.",
-      fr: "Mana Time Bank privilégie des règles claires, une légitimité locale et des décisions traçables avant la croissance.",
-    },
-  },
-  {
-    title: { en: "Local action, global language", fr: "Action locale, langage global" },
-    body: {
-      en: "Communities act locally while sharing a common vocabulary for time, contribution and cooperation.",
-      fr: "Les communautés agissent localement tout en partageant un vocabulaire commun du temps, de la contribution et de la coopération.",
-    },
-  },
-  {
-    title: { en: "Open coordination", fr: "Coordination ouverte" },
-    body: {
-      en: "The model is designed to connect people, institutions and intelligent systems without locking them in.",
-      fr: "Le modèle est conçu pour relier les personnes, les institutions et les systèmes intelligents sans les enfermer.",
-    },
-  },
-] as const;
-
-const flowSteps = [
-  { en: "Shared time", fr: "Temps partagé" },
-  { en: "Recognized value", fr: "Valeur reconnue" },
-  { en: "Trusted coordination", fr: "Coordination de confiance" },
-  { en: "Collective action", fr: "Action collective" },
-] as const;
-
-function ExternalLink({
-  href,
-  children,
-  variant = "plain",
-}: {
-  href: string;
-  children: React.ReactNode;
-  variant?: "primary" | "secondary" | "plain";
-}) {
-  const styles = {
-    primary:
-      "border-transparent gradient-btn text-white shadow-card",
-    secondary:
-      "border-surface-border bg-surface-white text-ink-secondary shadow-card hover:border-accent-muted hover:text-ink",
-    plain:
-      "border-surface-border bg-surface-white text-ink-secondary shadow-card hover:border-accent-muted hover:text-accent",
-  };
-
-  return (
-    <a
-      href={href}
-      className={`inline-flex items-center justify-center rounded-lg border px-5 py-3 text-sm font-bold tracking-wide transition duration-150 ${styles[variant]}`}
-    >
-      {children}
-    </a>
-  );
-}
-
-function Section({
-  id,
-  eyebrow,
-  title,
-  children,
-}: {
-  id?: string;
-  eyebrow: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section id={id} className="mx-auto w-full max-w-[1120px] px-6 py-16 md:px-10 lg:py-24">
-      <div className="max-w-3xl">
-        <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-muted">
-          {eyebrow}
-        </p>
-        <h2 className="mt-4 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-          {title}
-        </h2>
-      </div>
-      <div className="mt-10">{children}</div>
-    </section>
-  );
-}
-
-function LangToggle({ lang, setLang }: { lang: Lang; setLang: (l: Lang) => void }) {
-  return (
-    <div className="flex items-center gap-0.5 rounded-full border border-surface-border bg-surface-white p-0.5">
-      {(["en", "fr"] as Lang[]).map((l) => (
-        <button
-          key={l}
-          type="button"
-          onClick={() => setLang(l)}
-          aria-pressed={l === lang}
-          className={`rounded-full px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-150 ${
-            l === lang ? "gradient-btn text-white" : "text-ink-muted hover:text-ink"
-          }`}
-        >
-          {l}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function ManaWallpaper() {
-  return (
-    <div className="mana-wallpaper" aria-hidden="true">
-      <div className="mana-wallpaper-orbit mana-wallpaper-orbit-one" />
-      <div className="mana-wallpaper-orbit mana-wallpaper-orbit-two" />
-      <div className="mana-wallpaper-orbit mana-wallpaper-orbit-three" />
-      <div className="mana-wallpaper-core">
-        <img src="/Logo_MANA_Symbol_logo.png" alt="" className="mana-wallpaper-core-logo" />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
-      </div>
-      <div className="mana-world-line mana-world-line-one" />
-      <div className="mana-world-line mana-world-line-two" />
-      <div className="mana-world-line mana-world-line-three" />
-    </div>
-  );
-}
+import TerritoryHero from "./TerritoryHero";
+import DashboardMockup from "./DashboardMockup";
+import {
+  useLang,
+  Cta,
+  Eyebrow,
+  Section,
+  SectionHead,
+  Icon,
+  ManaWallpaper,
+  SiteHeader,
+  SiteFooter,
+} from "./shared";
+import {
+  nav,
+  hero,
+  problem,
+  functions,
+  solutions,
+  steps,
+  features,
+  dashboards,
+  whiteLabel,
+  usedBy,
+  pricing,
+  foundations,
+  lullaby,
+  whitePaper,
+  finalCta,
+} from "./copy";
 
 export default function App() {
-  const [lang, setLang] = useState<Lang>(detectLang);
-
-  useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, lang);
-    document.documentElement.lang = lang;
-  }, [lang]);
+  const [lang, setLang] = useLang();
 
   return (
     <div className="mana-wallpaper-page relative min-h-screen overflow-x-hidden bg-surface text-ink">
       <ManaWallpaper />
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-surface-border/60 bg-surface-white/95 shadow-soft backdrop-blur-md">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-          <img
-            src="/Logo_MANA_Symbol_logo.png"
-            alt=""
-            className="absolute left-1/2 top-1/2 h-28 w-full max-w-3xl -translate-x-1/2 -translate-y-1/2 object-contain opacity-[0.075]"
-          />
-        </div>
-        <nav
-          className="relative mx-auto flex h-[60px] max-w-[1120px] items-center justify-between px-6 md:px-10"
-          aria-label="Main navigation"
-        >
-          <a href="#top" className="flex items-center gap-3 text-[13px] font-bold uppercase tracking-[0.18em] text-ink">
-            <img src="/Logo_MANA_Symbol_logo.png" alt="MANA" className="h-7 w-7 object-contain" />
-            MANA<span className="font-normal lowercase">timebank</span>
-          </a>
-          <div className="flex items-center gap-7">
-            <div className="hidden items-center gap-7 text-[13px] text-ink-muted md:flex">
-              <a className="transition-colors duration-150 hover:text-ink" href="#model">
-                {t.nav.model[lang]}
-              </a>
-              <a className="transition-colors duration-150 hover:text-ink" href="#principles">
-                {t.nav.principles[lang]}
-              </a>
-              <a className="transition-colors duration-150 hover:text-ink" href="#temposystem">
-                TEMPOSYSTEM
-              </a>
-              <a className="transition-colors duration-150 hover:text-ink" href="#governance">
-                {t.nav.governance[lang]}
-              </a>
-              <a className="font-semibold text-accent transition-colors duration-150 hover:text-accent-hover" href="#livre-blanc">
-                {lang === "fr" ? "Livre blanc" : "White paper"}
-              </a>
-            </div>
-            <LangToggle lang={lang} setLang={setLang} />
-          </div>
-        </nav>
-      </header>
+      <SiteHeader lang={lang} setLang={setLang} />
 
       <main id="top" className="relative z-10">
-        <section className="relative flex min-h-screen items-center overflow-hidden bg-transparent px-6 pt-[60px] md:px-10">
+        {/* ---------------- 1. HERO ---------------- */}
+        <section className="relative overflow-hidden px-6 pt-[62px] md:px-10">
           <div className="absolute inset-0 hero-glow" />
-          <div className="relative z-10 mx-auto w-full max-w-6xl py-24">
-            <div className="max-w-4xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.36em] text-accent/80">
-                {t.hero.eyebrow[lang]}
-              </p>
-              <h1 className="mt-6 text-[clamp(2.7rem,7vw,5.5rem)] font-bold leading-[1.04] tracking-[-0.02em] gradient-text">
-                MANA<span className="font-normal lowercase">timebank</span>
+          <div className="relative z-10 mx-auto grid w-full max-w-content items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
+            <div>
+              <Eyebrow accent>{hero.eyebrow[lang]}</Eyebrow>
+              <h1 className="mt-5 text-[clamp(2.6rem,6vw,4.6rem)] font-bold leading-[1.03] tracking-[-0.02em] text-ink">
+                {hero.title[lang]}
               </h1>
-              <p className="mt-6 max-w-3xl text-[clamp(1.05rem,2vw,1.3rem)] leading-snug text-ink-secondary italic">
-                {t.hero.tagline[lang]}
+              <p className="mt-6 max-w-xl text-[clamp(1.05rem,1.8vw,1.3rem)] leading-relaxed text-ink-secondary">
+                {hero.subtitle[lang]}
               </p>
-              <p className="mt-8 max-w-2xl text-[15px] leading-[1.75] text-ink-muted sm:text-base">
-                {t.hero.body[lang]}
-              </p>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                <ExternalLink href="#model" variant="primary">
-                  {t.hero.exploreModel[lang]}
-                </ExternalLink>
-                <ExternalLink href="https://temposystem.eu" variant="secondary">
-                  {t.hero.discoverTempo[lang]}
-                </ExternalLink>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Cta href="/creer" variant="primary">
+                  {nav.create[lang]}
+                </Cta>
+                <Cta href="#contact" variant="secondary">
+                  {nav.demo[lang]}
+                </Cta>
               </div>
+
+              <div className="mt-11">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink-faint">
+                  {hero.sectorsLabel[lang]}
+                </p>
+                <div className="mt-3.5 flex flex-wrap gap-2">
+                  {hero.sectors.map((s) => (
+                    <span key={s.en} className="sector-pill">
+                      {s[lang]}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="relative">
+              <TerritoryHero />
             </div>
           </div>
         </section>
 
-        <Section id="model" eyebrow={t.model.eyebrow[lang]} title={t.model.title[lang]}>
-          <div className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="mana-card rounded-2xl p-8">
-              <p className="text-xl leading-9 text-ink-secondary">
-                {t.model.p1[lang]}
-              </p>
-              <p className="mt-6 leading-8 text-ink-muted">
-                {t.model.p2[lang]}
+        {/* ---------------- 2. PROBLÈME ---------------- */}
+        <Section>
+          <div className="grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+            <div>
+              <Eyebrow accent>{problem.eyebrow[lang]}</Eyebrow>
+              <h2 className="mt-4 text-[clamp(1.9rem,3.6vw,2.75rem)] font-bold leading-[1.1] tracking-tight text-ink">
+                {problem.title[lang]}
+                <br />
+                <span className="text-ink-muted">{problem.titleTwo[lang]}</span>
+              </h2>
+              <p className="mt-6 max-w-xl text-[15px] leading-7 text-ink-muted sm:text-base">
+                {problem.body[lang]}
               </p>
             </div>
-            <div className="grid gap-4 mana-card rounded-2xl bg-accent-light p-8">
-              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-                {t.model.ideaLabel[lang]}
-              </p>
-              <p className="text-2xl font-semibold leading-snug text-ink">
-                {t.model.idea[lang]}
-              </p>
-              <p className="leading-7 text-ink-muted">
-                {t.model.ideaBody[lang]}
-              </p>
+            <div className="flex flex-wrap gap-2.5 lg:justify-end">
+              {problem.gestures.map((g, i) => (
+                <span
+                  key={g.en}
+                  className="sector-pill"
+                  style={{ fontSize: `${15 - (i % 3)}px`, padding: "0.5rem 1rem" }}
+                >
+                  {g[lang]}
+                </span>
+              ))}
             </div>
           </div>
         </Section>
 
-        <Section id="principles" eyebrow={t.principlesSection.eyebrow[lang]} title={t.principlesSection.title[lang]}>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {principles.map((principle) => (
-              <article
-                key={principle.title.en}
-                className="mana-card rounded-2xl p-6 transition hover:-translate-y-0.5"
-              >
-                <div className="mb-6 h-1 w-10 rounded-full bg-gradient-to-r from-accent to-accent-end" />
-                <h3 className="text-lg font-semibold text-ink">{principle.title[lang]}</h3>
-                <p className="mt-4 text-sm leading-7 text-ink-muted">{principle.body[lang]}</p>
+        {/* ---------------- 3. TROIS FONCTIONS ---------------- */}
+        <Section>
+          <SectionHead eyebrow={functions.eyebrow[lang]} title={functions.title[lang]} />
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {functions.items.map((f) => (
+              <article key={f.key} className="mana-card rounded-2xl p-7">
+                <div className="grad-badge">
+                  <Icon name={f.key} />
+                </div>
+                <h3 className="mt-5 text-xl font-bold text-ink">{f.title[lang]}</h3>
+                <p className="mt-3 text-sm leading-7 text-ink-muted">{f.body[lang]}</p>
               </article>
             ))}
           </div>
         </Section>
 
-        <Section
-          eyebrow={t.flow.eyebrow[lang]}
-          title={t.flow.title[lang]}
-        >
-          <div className="mana-card rounded-2xl p-5 sm:p-8">
-            <div className="grid gap-4 md:grid-cols-4">
-              {flowSteps.map((step, index) => (
-                <div key={step.en} className="relative rounded-xl border border-surface-border bg-surface px-5 py-6">
-                  <span className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">
-                    0{index + 1}
+        {/* ---------------- 4. SOLUTIONS ---------------- */}
+        <Section id="solutions">
+          <SectionHead eyebrow={solutions.eyebrow[lang]} title={solutions.title[lang]} body={solutions.body[lang]} />
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {solutions.items.map((s) => (
+              <a key={s.key} href={`/solutions/${s.key}`} className="solution-card group block">
+                <h3 className="text-lg font-bold text-ink">{s.title[lang]}</h3>
+                <p className="mt-3 text-[13px] font-medium leading-6 text-ink-faint">{s.problem[lang]}</p>
+                <div className="my-3 h-px w-full bg-surface-divider" />
+                <p className="text-sm leading-6 text-ink-secondary">{s.solution[lang]}</p>
+                <span className="mt-5 inline-flex items-center gap-1 text-[13px] font-semibold text-accent opacity-0 transition-opacity duration-150 group-hover:opacity-100">
+                  {solutions.cta[lang]} <span aria-hidden>→</span>
+                </span>
+              </a>
+            ))}
+          </div>
+        </Section>
+
+        {/* ---------------- 5. COMMENT ÇA MARCHE ---------------- */}
+        <Section>
+          <SectionHead eyebrow={steps.eyebrow[lang]} title={steps.title[lang]} />
+          <ol className="mt-10 grid gap-4 md:grid-cols-5">
+            {steps.items.map((step, i) => (
+              <li key={step.title.en} className="relative rounded-2xl border border-surface-border bg-surface-white/80 p-5">
+                <span className="font-display text-2xl font-bold text-accent">{`0${i + 1}`}</span>
+                <h3 className="mt-3 text-[15px] font-bold leading-tight text-ink">{step.title[lang]}</h3>
+                <p className="mt-2 text-[12.5px] leading-6 text-ink-muted">{step.body[lang]}</p>
+                {i < steps.items.length - 1 ? (
+                  <div className="absolute -right-3 top-1/2 hidden h-px w-6 bg-gradient-to-r from-accent-muted to-transparent md:block" />
+                ) : null}
+              </li>
+            ))}
+          </ol>
+        </Section>
+
+        {/* ---------------- 6. FONCTIONNALITÉS ---------------- */}
+        <Section id="fonctionnalites">
+          <SectionHead eyebrow={features.eyebrow[lang]} title={features.title[lang]} />
+          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {features.families.map((fam) => (
+              <article key={fam.key} className="mana-card rounded-2xl p-6">
+                <div className="flex items-center gap-3">
+                  <div className="grad-badge h-10 w-10">
+                    <Icon name={fam.key} />
+                  </div>
+                  <h3 className="text-lg font-bold text-ink">{fam.title[lang]}</h3>
+                </div>
+                <ul className="mt-5 space-y-2.5">
+                  {fam.items[lang].map((item) => (
+                    <li key={item} className="flex items-start gap-2.5 text-sm leading-6 text-ink-secondary">
+                      <svg viewBox="0 0 20 20" className="mt-1 h-3.5 w-3.5 flex-none text-accent" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M4 10.5l4 4 8-9" />
+                      </svg>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </Section>
+
+        {/* ---------------- 7. TABLEAUX DE BORD ---------------- */}
+        <Section id="documentation">
+          <SectionHead eyebrow={dashboards.eyebrow[lang]} title={dashboards.title[lang]} body={dashboards.body[lang]} />
+          <div className="mt-10">
+            <DashboardMockup lang={lang} />
+          </div>
+        </Section>
+
+        {/* ---------------- 8. MARQUE BLANCHE ---------------- */}
+        <section id="marque-blanche" className="relative overflow-hidden text-white band-dark">
+          <div className="relative z-10 mx-auto grid max-w-content gap-12 px-6 py-20 md:px-10 lg:grid-cols-2 lg:items-center lg:py-28">
+            <div>
+              <p className="eyebrow text-white/50">{whiteLabel.eyebrow[lang]}</p>
+              <h2 className="mt-4 text-[clamp(2rem,4vw,3rem)] font-bold leading-[1.06] tracking-tight">
+                {whiteLabel.title1[lang]}
+                <br />
+                {whiteLabel.title2[lang]}
+                <br />
+                <span className="bg-gradient-to-r from-[#8FA0FF] to-[#E39BFF] bg-clip-text text-transparent">
+                  {whiteLabel.title3[lang]}
+                </span>
+              </h2>
+              <p className="mt-6 max-w-md text-[15px] leading-7 text-white/65">{whiteLabel.body[lang]}</p>
+              <div className="mt-8 flex flex-wrap gap-2">
+                {whiteLabel.includes[lang].map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[12.5px] font-medium text-white/80"
+                  >
+                    {item}
                   </span>
-                  <p className="mt-5 text-xl font-semibold text-ink">{step[lang]}</p>
-                  {index < flowSteps.length - 1 ? (
-                    <div className="absolute -right-4 top-1/2 hidden h-px w-8 bg-gradient-to-r from-mana to-transparent md:block" />
-                  ) : null}
+                ))}
+              </div>
+            </div>
+
+            <div className="grid gap-3">
+              {whiteLabel.examples.map((ex) => (
+                <div
+                  key={ex.name}
+                  className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur-sm"
+                >
+                  <div className="grid h-11 w-11 flex-none place-items-center rounded-xl bg-gradient-to-br from-[#2B3FC7] to-[#C040E8] text-sm font-bold">
+                    {ex.name.slice(0, 2)}
+                  </div>
+                  <div>
+                    <p className="font-display text-lg font-bold leading-tight">{ex.name}</p>
+                    <p className="text-[12.5px] text-white/55">{ex.tag[lang]}</p>
+                  </div>
+                  <span className="ml-auto text-[11px] font-medium text-white/35">powered by MANAtimebank</span>
                 </div>
               ))}
             </div>
-            <p className="mt-8 max-w-3xl text-sm leading-7 text-ink-muted">
-              {t.flow.body[lang]}
-            </p>
-          </div>
-        </Section>
-
-        <Section id="temposystem" eyebrow={t.tempo.eyebrow[lang]} title={t.tempo.title[lang]}>
-          <div className="grid gap-6 lg:grid-cols-3">
-            <article className="mana-card rounded-2xl p-8 lg:col-span-2">
-              <p className="text-lg leading-8 text-ink-secondary">
-                {t.tempo.body[lang]}
-              </p>
-            </article>
-            <div className="grid content-start gap-3">
-              <ExternalLink href="https://temposystem.eu">TEMPOSYSTEM.eu</ExternalLink>
-              <ExternalLink href="https://temposystem.fr">TEMPOSYSTEM.fr</ExternalLink>
-            </div>
-          </div>
-        </Section>
-
-        {/* LULLABY — TEMPOSYSTEM as a living flow (illustration, dark band) */}
-        <section
-          id="lullaby"
-          className="relative overflow-hidden text-white"
-          style={{ background: "linear-gradient(160deg,#1b2a55 0%,#3a2a78 45%,#6d3a9e 100%)" }}
-        >
-          <div className="relative z-10 mx-auto flex max-w-[1120px] flex-col items-center px-6 py-20 text-center md:px-10 md:py-28">
-            <p className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-white/55">
-              {t.lullaby.eyebrow[lang]}
-            </p>
-            <h2 className="text-[clamp(2rem,5vw,3.4rem)] font-bold leading-[1.05] tracking-tight">
-              TEMPOSYSTEM
-            </h2>
-
-            <p className="source-equation" aria-label="1 second equals 1 mana" style={{ marginTop: "1rem" }}>
-              <span className="eq-part eq-time">{t.lullaby.equationTime[lang]}</span>
-              <span className="eq-sign">=</span>
-              <span className="eq-part eq-mana">{t.lullaby.equationMana[lang]}</span>
-            </p>
-
-            {/* Module LULLABY — butterfly-comet + time transfer counters */}
-            <HeroTransferScene giverLabel={t.lullaby.giver[lang]} receiverLabel={t.lullaby.receiver[lang]} />
-
-            <p className="max-w-xl text-[15px] leading-[1.8] text-white/70">
-              {t.lullaby.body[lang]}
-            </p>
           </div>
         </section>
 
-        <Section eyebrow={t.impl.eyebrow[lang]} title={t.impl.title[lang]}>
-          {/* Schéma simple de l'écosystème (remplace les cartes détaillées) */}
-          <EcosystemSchema lang={lang} />
-        </Section>
-
-        <Section id="governance" eyebrow={t.governance.eyebrow[lang]} title={t.governance.title[lang]}>
-          <div className="rounded-2xl border border-accent-muted bg-gradient-to-br from-accent-light to-surface-white p-8 sm:p-10">
-            <p className="max-w-3xl text-lg leading-8 text-ink-secondary">
-              {t.governance.body[lang]}
-            </p>
-            <div className="mt-8">
-              <ExternalLink href="https://alliancemana.org" variant="primary">
-                {t.governance.visit[lang]}
-              </ExternalLink>
-            </div>
+        {/* ---------------- 9. ILS L'UTILISENT ---------------- */}
+        <Section>
+          <SectionHead eyebrow={usedBy.eyebrow[lang]} title={usedBy.title[lang]} body={usedBy.body[lang]} />
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {usedBy.items.map((u) => (
+              <a
+                key={u.name}
+                href={u.href}
+                className="mana-card group flex flex-col rounded-2xl p-7 transition hover:-translate-y-0.5"
+              >
+                <div className="flex items-center gap-3">
+                  <img src="/Logo_MANA_Symbol_logo.png" alt="" className="h-8 w-8 object-contain" />
+                  <span className="font-display text-xl font-bold text-ink">{u.name}</span>
+                </div>
+                <p className="mt-4 text-sm leading-7 text-ink-muted">{u.desc[lang]}</p>
+                <span className="mt-5 inline-flex items-center gap-1 text-[13px] font-semibold text-accent">
+                  {u.href.replace("https://", "")}
+                  <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+                </span>
+              </a>
+            ))}
           </div>
         </Section>
 
-        <Section
-          id="livre-blanc"
-          eyebrow={lang === "fr" ? "Le texte de référence" : "The founding document"}
-          title={lang === "fr" ? "Le livre blanc" : "The white paper"}
-        >
-          <div className="rounded-2xl border border-accent-muted bg-gradient-to-br from-accent-light to-surface-white p-8 sm:p-10">
-            <p className="text-xs font-bold uppercase tracking-[0.12em] text-ink-muted">
-              ManaTimeBank × TempoSystem · v1.1 {lang === "fr" ? "· Édition française" : "· English edition"}
+        {/* ---------------- 10. TARIFS ---------------- */}
+        <Section id="tarifs">
+          <SectionHead eyebrow={pricing.eyebrow[lang]} title={pricing.title[lang]} body={pricing.body[lang]} center />
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {pricing.tiers.map((tier) => (
+              <div
+                key={tier.name}
+                className={`relative flex flex-col rounded-2xl border p-6 ${
+                  tier.featured
+                    ? "border-accent-muted bg-surface-white shadow-card-hover"
+                    : "border-surface-border bg-surface-white/80"
+                }`}
+              >
+                {tier.featured ? (
+                  <span className="absolute -top-2.5 left-6 rounded-full gradient-btn px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-white">
+                    {lang === "fr" ? "Populaire" : "Popular"}
+                  </span>
+                ) : null}
+                <h3 className="font-display text-lg font-bold text-ink">{tier.name}</h3>
+                <div className="mt-3 flex items-baseline gap-1">
+                  <span className="text-2xl font-bold tracking-tight text-ink">{tier.price[lang]}</span>
+                  {tier.period[lang] ? <span className="text-[13px] text-ink-muted">{tier.period[lang]}</span> : null}
+                </div>
+                <p className="mt-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-accent">{tier.members[lang]}</p>
+                <p className="mt-2 flex-1 text-[13px] leading-6 text-ink-muted">{tier.for[lang]}</p>
+                <Cta href="/tarifs" variant={tier.featured ? "primary" : "plain"} className="mt-6 w-full">
+                  {pricing.cta[lang]}
+                </Cta>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* ---------------- 11. FONDATIONS ---------------- */}
+        <Section id="fondations">
+          <SectionHead eyebrow={foundations.eyebrow[lang]} title={foundations.title[lang]} body={foundations.body[lang]} />
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {foundations.items.map((it) => (
+              <a
+                key={it.title.en}
+                href={it.href}
+                className="mana-card group flex items-start justify-between gap-4 rounded-2xl p-6"
+              >
+                <div>
+                  <h3 className="font-display text-lg font-bold text-ink">{it.title[lang]}</h3>
+                  <p className="mt-2 text-sm leading-6 text-ink-muted">{it.body[lang]}</p>
+                </div>
+                <span aria-hidden className="mt-1 text-accent transition-transform group-hover:translate-x-0.5">→</span>
+              </a>
+            ))}
+          </div>
+        </Section>
+
+        {/* LULLABY — l'infrastructure en mouvement (clôture émotionnelle) */}
+        <section id="lullaby" className="relative overflow-hidden text-white band-dark">
+          <div className="relative z-10 mx-auto flex max-w-content flex-col items-center px-6 py-20 text-center md:px-10 md:py-28">
+            <p className="mb-5 eyebrow text-white/50">{lullaby.eyebrow[lang]}</p>
+            <h2 className="font-display text-[clamp(2rem,5vw,3.2rem)] font-bold leading-[1.05] tracking-tight">
+              TempoSystem
+            </h2>
+            <p className="source-equation" aria-label="1 = 1" style={{ marginTop: "1rem" }}>
+              <span className="eq-part eq-time">{lullaby.equationTime[lang]}</span>
+              <span className="eq-sign">=</span>
+              <span className="eq-part eq-mana">{lullaby.equationMana[lang]}</span>
             </p>
-            <h3 className="mt-2 text-2xl font-bold tracking-tight text-ink sm:text-3xl">
-              {lang === "fr"
-                ? "Le temps donné — le concept et son inscription"
-                : "Given time — the concept and its inscription"}
+            <HeroTransferScene giverLabel={lullaby.giver[lang]} receiverLabel={lullaby.receiver[lang]} />
+            <p className="max-w-xl text-[15px] leading-[1.8] text-white/70">{lullaby.body[lang]}</p>
+          </div>
+        </section>
+
+        {/* ---------------- LIVRE BLANC ---------------- */}
+        <Section id="livre-blanc">
+          <div className="rounded-2xl border border-accent-muted bg-gradient-to-br from-accent-light to-surface-white p-8 sm:p-10">
+            <Eyebrow accent>{whitePaper.eyebrow[lang]}</Eyebrow>
+            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.1em] text-ink-muted">
+              {whitePaper.version[lang]}
+            </p>
+            <h3 className="mt-2 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+              {whitePaper.title[lang]}
             </h3>
-            <p className="mt-4 max-w-3xl text-lg leading-8 text-ink-secondary">
-              {lang === "fr"
-                ? "Le document fondateur : ce que le PIB ne voit pas, la trace plutôt que la créance, le diptyque du soleil et de la lune, un nouvel outil de lecture des sociétés — et comment on l'inscrit, concrètement. Gratuit, sourcé, faisable."
-                : "The founding document: what GDP cannot see, the trace rather than the claim, the diptych of sun and moon, a new way to read societies — and how it is inscribed, concretely. Free, sourced, feasible."}
+            <p className="mt-4 max-w-3xl text-[15px] leading-7 text-ink-secondary sm:text-lg sm:leading-8">
+              {whitePaper.body[lang]}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <ExternalLink href={lang === "fr" ? "/livre-blanc.html" : "/livre-blanc-en.html"} variant="primary">
-                {lang === "fr" ? "Lire en ligne →" : "Read online →"}
-              </ExternalLink>
-              <ExternalLink href="/Le-temps-donne-Livre-blanc-v1.1.pdf" variant="secondary">
-                {lang === "fr" ? "Télécharger le PDF" : "Download PDF"}
-              </ExternalLink>
+              <Cta href={lang === "fr" ? "/livre-blanc.html" : "/livre-blanc-en.html"} variant="primary">
+                {whitePaper.read[lang]}
+              </Cta>
+              <Cta href="/Le-temps-donne-Livre-blanc-v1.1.pdf" variant="secondary">
+                {whitePaper.download[lang]}
+              </Cta>
             </div>
           </div>
         </Section>
+
+        {/* ---------------- CTA FINAL ---------------- */}
+        <Section className="!py-10">
+          <div className="rounded-3xl border border-surface-border bg-surface-white/70 p-10 text-center backdrop-blur-md sm:p-14">
+            <h2 className="mx-auto max-w-2xl font-display text-[clamp(1.8rem,3.6vw,2.6rem)] font-bold leading-[1.1] tracking-tight text-ink">
+              {finalCta.title[lang]}
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-ink-muted">{finalCta.body[lang]}</p>
+            <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+              <Cta href="/creer" variant="primary">
+                {nav.create[lang]}
+              </Cta>
+              <Cta href="#contact" variant="secondary">
+                {nav.demo[lang]}
+              </Cta>
+            </div>
+          </div>
+        </Section>
+
         <ContactSection lang={lang} subject="Message via manatimebank.org" />
       </main>
 
-      <footer className="border-t border-surface-border bg-surface px-6 py-9 md:px-10">
-        <div className="mx-auto max-w-[1120px]">
-          <div className="flex items-center gap-3.5">
-            <img src="/Logo_MANA_Symbol_logo.png" alt="MANA" className="h-6 w-6 object-contain opacity-70" />
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-ink">Mana Time Bank</p>
-              <p className="mt-0.5 text-[11px] text-ink-faint">{t.footer.tagline[lang]}</p>
-            </div>
-          </div>
-
-          {/* Écosystème — une ligne */}
-          <nav
-            aria-label={lang === "fr" ? "L'univers MANA" : "The MANA universe"}
-            className="mt-7 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-surface-border pt-6 text-[12px] text-ink-faint"
-          >
-            <a href="https://manahome.org" className="font-bold text-ink-secondary transition-colors hover:text-accent">
-              ManaHome
-            </a>
-            <span className="text-accent-muted">›</span>
-            {[
-              ["https://temposystem.eu", "TempoSystem.eu"],
-              ["https://temposystem.fr", "TempoSystem.fr"],
-              ["https://manafrance.org", "MANA France"],
-              ["https://mana.bzh", "Mana.bzh"],
-              ["https://manafamily.org", "ManaFamily"],
-              ["https://alliancemana.org", "Alliance MANA"],
-            ].map(([href, label], i) => (
-              <span key={href} className="flex items-center gap-2">
-                {i > 0 && <span className="text-surface-border">·</span>}
-                <a href={href} className="transition-colors hover:text-accent">{label}</a>
-              </span>
-            ))}
-          </nav>
-
-          <p className="mt-5 text-[11px] text-ink-faint">
-            © {new Date().getFullYear()} — {lang === "fr" ? "L'univers MANA" : "The MANA universe"} ·{" "}
-            <a href="https://manahome.org" className="transition-colors hover:text-accent">MANAHOME.org</a>
-          </p>
-        </div>
-      </footer>
+      <SiteFooter lang={lang} />
     </div>
   );
 }

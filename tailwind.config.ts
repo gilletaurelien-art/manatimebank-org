@@ -30,7 +30,13 @@ const config: Config = {
         civic: "#A7F3D0",
       },
       fontFamily: {
-        sans: ["Philosopher", "Georgia", "serif"],
+        // "sans" = corps & UI (registre logiciel, crédibilité Stripe/Linear)
+        sans: ["Inter", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        // "display" = titres & signature de marque (âme poétique MANA)
+        display: ["Philosopher", "Georgia", "serif"],
+      },
+      maxWidth: {
+        content: "1180px",
       },
       boxShadow: {
         card: "0 1px 3px 0 rgba(11,18,32,0.06), 0 1px 2px -1px rgba(11,18,32,0.04)",
