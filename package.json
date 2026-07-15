@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "postbuild": "node scripts/prerender.mjs || echo \"prerender ignoré\""
+    "postbuild": "node scripts/prerender.mjs || echo \"prerender ignoré\"; node scripts/spa-routes.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",
