@@ -1,6 +1,6 @@
 import HeroTransferScene from "./HeroTransferScene";
 import ContactSection from "./ContactSection";
-import TerritoryHero from "./TerritoryHero";
+import HeroShowcase from "./HeroShowcase";
 import DashboardMockup from "./DashboardMockup";
 import {
   useLang,
@@ -45,7 +45,10 @@ export default function App() {
           <div className="absolute inset-0 hero-glow" />
           <div className="relative z-10 mx-auto grid w-full max-w-content items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
             <div>
-              <Eyebrow accent>{hero.eyebrow[lang]}</Eyebrow>
+              <div className="flex items-center gap-2">
+                <span aria-hidden className="text-[15px] leading-none">🌍</span>
+                <Eyebrow accent>{hero.eyebrow[lang]}</Eyebrow>
+              </div>
               <h1 className="mt-5 text-[clamp(2.6rem,6vw,4.6rem)] font-bold leading-[1.03] tracking-[-0.02em] text-ink">
                 {hero.title[lang]}
               </h1>
@@ -76,7 +79,7 @@ export default function App() {
             </div>
 
             <div className="relative">
-              <TerritoryHero />
+              <HeroShowcase />
             </div>
           </div>
         </section>

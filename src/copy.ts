@@ -19,8 +19,8 @@ export const nav = {
 
 export const hero = {
   eyebrow: {
-    en: "Open infrastructure for contributive time",
-    fr: "Infrastructure ouverte du temps contributif",
+    en: "The time bank, open to the world",
+    fr: "La banque de temps ouverte au monde",
   },
   title: { en: "Create your time bank.", fr: "Créez votre banque de temps." },
   subtitle: {
