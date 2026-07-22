@@ -146,15 +146,11 @@ export function LangToggle({ lang, setLang }: { lang: Lang; setLang: (l: Lang) =
 export function ManaWallpaper() {
   return (
     <div className="mana-wallpaper" aria-hidden="true">
-      <div className="mana-wallpaper-orbit mana-wallpaper-orbit-one" />
-      <div className="mana-wallpaper-orbit mana-wallpaper-orbit-two" />
-      <div className="mana-wallpaper-orbit mana-wallpaper-orbit-three" />
-      <div className="mana-wallpaper-core">
-        <img src="/Logo_MANA_Symbol_logo.png" alt="" className="mana-wallpaper-core-logo" />
-      </div>
-      <div className="mana-world-line mana-world-line-one" />
-      <div className="mana-world-line mana-world-line-two" />
-      <div className="mana-world-line mana-world-line-three" />
+      <img
+        src="/assets/manatimebank-card.jpeg"
+        alt=""
+        className="mana-watermark"
+      />
     </div>
   );
 }
@@ -180,7 +176,11 @@ export function SiteHeader({ lang, setLang }: { lang: Lang; setLang: (l: Lang) =
         aria-label="Main navigation"
       >
         <a href="/" className="flex items-center gap-2.5 text-[15px] font-bold tracking-tight text-ink">
-          <img src="/Logo_MANA_Symbol_logo.png" alt="MANA" className="h-7 w-7 object-contain" />
+          <img
+            src="/assets/manatimebank-mark-t.png"
+            alt="MANAtimebank"
+            className="h-7 w-7 object-contain"
+          />
           <span className="font-display">
             MANA<span className="font-normal">timebank</span>
           </span>
@@ -292,7 +292,7 @@ export function SiteFooter({ lang }: { lang: Lang }) {
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-2.5">
-              <img src="/Logo_MANA_Symbol_logo.png" alt="MANA" className="h-7 w-7 object-contain" />
+              <img src="/assets/manatimebank-mark-t.png" alt="MANAtimebank" className="h-7 w-7 object-contain" />
               <span className="font-display text-[15px] font-bold text-ink">
                 MANA<span className="font-normal">timebank</span>
               </span>
