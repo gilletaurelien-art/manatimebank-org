@@ -39,7 +39,7 @@ export default function EcosystemSchema({ lang = 'fr' }: { lang?: string }) {
         style={{
           display: 'inline-flex', alignItems: 'center', gap: '1.1rem', textAlign: 'left',
           textDecoration: 'none', background: '#fff',
-          border: '1px solid #E8EAF0', borderRadius: 20, padding: '1rem 1.6rem 1rem 1.1rem',
+          border: '1px solid #E7E1D4', borderRadius: 20, padding: '1rem 1.6rem 1rem 1.1rem',
           boxShadow: '0 14px 40px rgba(90,60,230,0.13)', maxWidth: 460,
         }}
       >
@@ -50,20 +50,20 @@ export default function EcosystemSchema({ lang = 'fr' }: { lang?: string }) {
             width: 64, height: 64, flex: 'none', borderRadius: '50%',
             objectFit: 'cover', objectPosition: 'center',
             background: 'linear-gradient(135deg,#f5f3ff,#ede9fe)',
-            border: '1px solid rgba(192,64,232,0.25)',
+            border: '1px solid rgba(195,164,94,0.25)',
             boxShadow: '0 0 18px rgba(124,77,255,0.25)',
           }}
         />
         <span style={{ display: 'block' }}>
           <span style={{ display: 'flex', alignItems: 'baseline', gap: '0.6rem', flexWrap: 'wrap' }}>
-            <span style={{ fontWeight: 700, fontSize: '1rem', letterSpacing: '0.14em', color: '#0B1220' }}>MANAHOME.org</span>
-            <span style={{ fontSize: '0.66rem', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 700, color: '#7c3aed' }}>
+            <span style={{ fontWeight: 700, fontSize: '1rem', letterSpacing: '0.14em', color: '#211B12' }}>MANAHOME.org</span>
+            <span style={{ fontSize: '0.66rem', letterSpacing: '0.2em', textTransform: 'uppercase', fontWeight: 700, color: '#8A6B33' }}>
               {l === 'en' ? 'The guide' : "L'assistance"}
             </span>
           </span>
           <span style={{
             display: 'block', marginTop: '0.2rem', fontStyle: 'italic', fontSize: '0.88rem', lineHeight: 1.5,
-            background: 'linear-gradient(110deg,#2B3FC7,#8B35D6,#C040E8)',
+            background: 'linear-gradient(110deg,#6E5629,#9B804B,#C3A45E)',
             WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent',
           }}>
             {l === 'en'
@@ -72,12 +72,12 @@ export default function EcosystemSchema({ lang = 'fr' }: { lang?: string }) {
           </span>
         </span>
       </a>
-      <div style={{ fontSize: '1.2rem', color: '#C040E8', opacity: 0.6, margin: '0.6rem 0' }}>▼</div>
-      <div style={{ position: 'relative', border: '1px dashed rgba(43,63,199,0.35)', borderRadius: 20, padding: '1.7rem 1.1rem 1.1rem', background: 'rgba(43,63,199,0.02)' }}>
+      <div style={{ fontSize: '1.2rem', color: '#C3A45E', opacity: 0.6, margin: '0.6rem 0' }}>▼</div>
+      <div style={{ position: 'relative', border: '1px dashed rgba(110,86,41,0.35)', borderRadius: 20, padding: '1.7rem 1.1rem 1.1rem', background: 'rgba(110,86,41,0.02)' }}>
         <span style={{
           position: 'absolute', top: '-0.8rem', left: '50%', transform: 'translateX(-50%)',
-          background: '#F7F8FA', padding: '0 0.9rem', whiteSpace: 'nowrap',
-          fontSize: '0.7rem', letterSpacing: '0.22em', textTransform: 'uppercase', fontWeight: 700, color: '#7c3aed',
+          background: '#FAF8F2', padding: '0 0.9rem', whiteSpace: 'nowrap',
+          fontSize: '0.7rem', letterSpacing: '0.22em', textTransform: 'uppercase', fontWeight: 700, color: '#8A6B33',
         }}>
           {l === 'en' ? 'Temposystem ecosystem' : 'Écosystème Temposystem'}
         </span>
@@ -85,19 +85,19 @@ export default function EcosystemSchema({ lang = 'fr' }: { lang?: string }) {
           {WORLDS.map((w) => (
             <a key={w.nom} href={w.href} style={{
               display: 'block', textDecoration: 'none', background: '#fff',
-              border: '1px solid #E8EAF0', borderRadius: 14, padding: '1rem 0.8rem',
+              border: '1px solid #E7E1D4', borderRadius: 14, padding: '1rem 0.8rem',
               transition: 'transform 0.25s, border-color 0.25s',
             }}>
               <span style={{ display: 'flex', justifyContent: 'center', marginBottom: '0.45rem' }}>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B35D6" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9B804B" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden>
                   {w.icon}
                 </svg>
               </span>
-              <span style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.12em', color: '#0B1220' }}>
+              <span style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', letterSpacing: '0.12em', color: '#211B12' }}>
                 {w.nom.slice(0, w.nom.lastIndexOf('.')).toUpperCase()}
                 <span style={{ textTransform: 'lowercase' }}>{w.nom.slice(w.nom.lastIndexOf('.'))}</span>
               </span>
-              <span style={{ display: 'block', fontSize: '0.78rem', color: '#6B7280', marginTop: '0.2rem' }}>{w.role[l]}</span>
+              <span style={{ display: 'block', fontSize: '0.78rem', color: '#77705F', marginTop: '0.2rem' }}>{w.role[l]}</span>
             </a>
           ))}
         </div>

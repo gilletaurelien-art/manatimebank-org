@@ -55,8 +55,8 @@ export default function DashboardMockup({ lang }: { lang: Lang }) {
             <svg viewBox="0 0 100 100" className="h-40 w-full">
               <defs>
                 <radialGradient id="mapDot" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#2B3FC7" />
-                  <stop offset="100%" stopColor="#C040E8" />
+                  <stop offset="0%" stopColor="#6E5629" />
+                  <stop offset="100%" stopColor="#C3A45E" />
                 </radialGradient>
               </defs>
               {MAP_DOTS.map(([x, y], i) => (
@@ -66,7 +66,7 @@ export default function DashboardMockup({ lang }: { lang: Lang }) {
                 </g>
               ))}
               {/* liens */}
-              <g stroke="#8B35D6" strokeWidth="0.5" opacity="0.35">
+              <g stroke="#9B804B" strokeWidth="0.5" opacity="0.35">
                 <line x1="22" y1="30" x2="40" y2="22" />
                 <line x1="40" y1="22" x2="58" y2="34" />
                 <line x1="30" y1="50" x2="50" y2="58" />
@@ -90,7 +90,7 @@ export default function DashboardMockup({ lang }: { lang: Lang }) {
                     height: `${h}%`,
                     animationDelay: `${i * 55}ms`,
                     background:
-                      "linear-gradient(180deg, #C040E8 0%, #2B3FC7 100%)",
+                      "linear-gradient(180deg, #C3A45E 0%, #6E5629 100%)",
                     opacity: 0.55 + (i / BARS.length) * 0.45,
                   }}
                 />

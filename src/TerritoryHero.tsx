@@ -47,16 +47,16 @@ export default function TerritoryHero() {
       <svg viewBox="0 0 500 400" fill="none" role="img">
         <defs>
           <linearGradient id="flowGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#2B3FC7" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#C040E8" stopOpacity="0.55" />
+            <stop offset="0%" stopColor="#6E5629" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#C3A45E" stopOpacity="0.55" />
           </linearGradient>
           <radialGradient id="landGrad" cx="50%" cy="45%" r="65%">
-            <stop offset="0%" stopColor="#EEEFFE" stopOpacity="0.9" />
-            <stop offset="100%" stopColor="#EEEFFE" stopOpacity="0" />
+            <stop offset="0%" stopColor="#F5EFE1" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#F5EFE1" stopOpacity="0" />
           </radialGradient>
           <linearGradient id="placeGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#2B3FC7" />
-            <stop offset="100%" stopColor="#8B35D6" />
+            <stop offset="0%" stopColor="#6E5629" />
+            <stop offset="100%" stopColor="#9B804B" />
           </linearGradient>
         </defs>
 
@@ -64,7 +64,7 @@ export default function TerritoryHero() {
         <ellipse cx="250" cy="190" rx="240" ry="170" fill="url(#landGrad)" />
 
         {/* Spirale MANA — présente mais discrète, en fond */}
-        <g opacity="0.10" stroke="#8B35D6" strokeWidth="1.4" fill="none">
+        <g opacity="0.10" stroke="#9B804B" strokeWidth="1.4" fill="none">
           <path d="M250 190 m-8 0 a8 8 0 1 1 16 0 a16 16 0 1 1 -32 0 a24 24 0 1 1 48 0 a32 32 0 1 1 -64 0 a40 40 0 1 1 80 0" />
         </g>
 
@@ -114,7 +114,7 @@ export default function TerritoryHero() {
                   width="9"
                   height="9"
                   rx="2.5"
-                  fill="#C040E8"
+                  fill="#C3A45E"
                   opacity="0.85"
                 />
               );
@@ -126,7 +126,7 @@ export default function TerritoryHero() {
                 cx={n.x}
                 cy={n.y}
                 r="3.4"
-                fill="#2B3FC7"
+                fill="#6E5629"
                 style={{ animationDelay: `${n.delay ?? 0}s` }}
               />
             );
