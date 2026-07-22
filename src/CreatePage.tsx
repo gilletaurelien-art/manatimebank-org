@@ -196,7 +196,7 @@ function CreateWizard({ lang }: { lang: Lang }) {
     return (
       <section className="mx-auto w-full max-w-content px-6 py-24 md:px-10">
         <div className="mx-auto max-w-xl rounded-3xl border border-surface-border bg-surface-white/80 p-10 text-center backdrop-blur-md sm:p-14">
-          <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-[#2B3FC7] to-[#C040E8] text-white">
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-[#6E5629] to-[#C3A45E] text-white">
             <svg viewBox="0 0 24 24" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M4 12l5 5L20 6" />
             </svg>
@@ -206,7 +206,7 @@ function CreateWizard({ lang }: { lang: Lang }) {
           </h1>
           <p className="mt-4 text-[15px] leading-7 text-ink-muted">{C.okBody[lang]}</p>
           <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-surface-border bg-surface px-4 py-1.5 text-[13px] font-medium text-ink-secondary">
-            <span className="h-2 w-2 rounded-full bg-gradient-to-r from-[#2B3FC7] to-[#C040E8]" />
+            <span className="h-2 w-2 rounded-full bg-gradient-to-r from-[#6E5629] to-[#C3A45E]" />
             {finalSlug}.manatimebank.org
           </div>
           <div className="mt-8">
@@ -237,7 +237,7 @@ function CreateWizard({ lang }: { lang: Lang }) {
         </span>
         <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-divider">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-[#2B3FC7] to-[#C040E8] transition-all duration-300"
+            className="h-full rounded-full bg-gradient-to-r from-[#6E5629] to-[#C3A45E] transition-all duration-300"
             style={{ width: `${((step + 1) / TOTAL) * 100}%` }}
           />
         </div>
@@ -395,7 +395,7 @@ function CreateWizard({ lang }: { lang: Lang }) {
               {v.spaceName || v.orgName || (lang === "fr" ? "Votre espace" : "Your space")}
             </p>
             <div className="mt-1.5 inline-flex items-center gap-2 rounded-full bg-surface-white/70 px-3 py-1 text-[12px] font-medium text-ink-secondary">
-              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-[#2B3FC7] to-[#C040E8]" />
+              <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-[#6E5629] to-[#C3A45E]" />
               {slug}.manatimebank.org
             </div>
 

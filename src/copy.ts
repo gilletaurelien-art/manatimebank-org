@@ -22,10 +22,10 @@ export const hero = {
     en: "The time bank, open to the world",
     fr: "La banque de temps ouverte au monde",
   },
-  title: { en: "Create your time bank.", fr: "Créez votre banque de temps." },
+  title: { en: "Your Time Space", fr: "Votre Espace Temps" },
   subtitle: {
-    en: "The platform that lets organizations recognize, coordinate and measure contributive time — at any scale.",
-    fr: "La plateforme qui permet aux organisations de reconnaître, coordonner et mesurer le temps contributif — à toute échelle.",
+    en: "The platform that lets organizations recognize, coordinate and measure contributive time — at any scale. Grounded in a digital Constitution and sovereign data.",
+    fr: "La plateforme qui permet aux organisations de reconnaître, coordonner et mesurer le temps contributif — à toute échelle. Adossée à une Constitution numérique et des données souveraines.",
   },
   sectorsLabel: { en: "Built for", fr: "Conçu pour" },
   sectors: [
@@ -526,6 +526,16 @@ export const whiteLabel = {
     { name: "TempsPartagé", tag: { en: "Grand Est network", fr: "Réseau Grand Est" } },
     { name: "CampusLink", tag: { en: "University alliance", fr: "Alliance universitaire" } },
   ],
+  sovereignty: {
+    label: { en: "Data sovereignty", fr: "Souveraineté des données" },
+    title: { en: "Your data, hosted in France.", fr: "Vos données, hébergées en France." },
+    body: {
+      en: "Your community's data stays under European jurisdiction — a sovereign infrastructure operated by TempoSystem, with data residency and no lock-in.",
+      fr: "Les données de votre communauté restent sous juridiction européenne — une infrastructure souveraine opérée par TempoSystem, avec résidence des données et sans verrouillage.",
+    },
+    link: { en: "Learn more on temposystem.eu →", fr: "En savoir plus sur temposystem.eu →" },
+    href: "https://temposystem.eu",
+  },
 } as const;
 
 export const usedBy = {

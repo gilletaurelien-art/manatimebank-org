@@ -230,9 +230,9 @@ function FinalBand({ lang }: { lang: "en" | "fr" }) {
           {lang === "fr" ? "Prêt à créer votre espace temps ?" : "Ready to create your time space?"}
         </h2>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Cta href="/creer" variant="primary">
-            {lang === "fr" ? "Créer votre espace temps" : "Create your time space"}
-          </Cta>
+          <Cta href="/#contact" variant="primary">
+                {lang === "fr" ? "Nous contacter" : "Contact us"}
+              </Cta>
           <a
             href="/#contact"
             className="inline-flex items-center justify-center rounded-lg border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"

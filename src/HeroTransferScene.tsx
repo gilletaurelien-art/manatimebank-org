@@ -32,9 +32,13 @@ const COMET = Array.from({ length: 18 }, (_, i) => {
 export default function HeroTransferScene({
   giverLabel = "Giver",
   receiverLabel = "Receiver",
+  butterflySrc = "/assets/temposystem-butterfly-transparent.png",
+  showCounters = true,
 }: {
   giverLabel?: string;
   receiverLabel?: string;
+  butterflySrc?: string;
+  showCounters?: boolean;
 } = {}) {
   const [elapsed, setElapsed] = useState(0);
   const moduleRef = useRef<HTMLDivElement>(null);
@@ -93,38 +97,38 @@ export default function HeroTransferScene({
                C 213.7,508 170.8,385 213.7,285
                C 259.9,206 424.3,248 533,425 Z" />
 
-          {/* Dégradé chronologique : cyan (droite) → blanc (nœud) → bleu (gauche) */}
+          {/* Dégradé chronologique : or clair (droite) → blanc (nœud) → or (gauche) */}
           <linearGradient id="hts-grad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%"   stopColor="#60A5FA" />
-            <stop offset="50%"  stopColor="#E9D5FF" />
-            <stop offset="100%" stopColor="#22D3EE" />
+            <stop offset="0%"   stopColor="#E7C877" />
+            <stop offset="50%"  stopColor="#FFF6DE" />
+            <stop offset="100%" stopColor="#C3A45E" />
           </linearGradient>
 
           {/* Lueur du point CUITE dans un dégradé radial : aucun flou recalculé
               à chaque frame (≠ drop-shadow / feGaussianBlur) → fluide et léger. */}
           <radialGradient id="hts-halo">
             <stop offset="0%"   stopColor="rgba(255,255,255,1)" />
-            <stop offset="22%"  stopColor="rgba(255,255,255,0.85)" />
-            <stop offset="45%"  stopColor="rgba(233,213,255,0.45)" />
-            <stop offset="70%"  stopColor="rgba(168,85,247,0.18)" />
-            <stop offset="100%" stopColor="rgba(34,211,238,0)" />
+            <stop offset="22%"  stopColor="rgba(255,246,222,0.9)" />
+            <stop offset="45%"  stopColor="rgba(231,200,119,0.5)" />
+            <stop offset="70%"  stopColor="rgba(201,164,94,0.2)" />
+            <stop offset="100%" stopColor="rgba(195,164,94,0)" />
           </radialGradient>
 
           {/* Blobs doux de la traînée — bords flous (dégradé), se fondent en ruban */}
           <radialGradient id="hts-trail-w">
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-            <stop offset="50%" stopColor="#ffffff" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+            <stop offset="0%" stopColor="#FFFBF0" stopOpacity="1" />
+            <stop offset="50%" stopColor="#FFFBF0" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#FFFBF0" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="hts-trail-l">
-            <stop offset="0%" stopColor="#E9D5FF" stopOpacity="1" />
-            <stop offset="50%" stopColor="#E9D5FF" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#E9D5FF" stopOpacity="0" />
+            <stop offset="0%" stopColor="#F4DCA0" stopOpacity="1" />
+            <stop offset="50%" stopColor="#F4DCA0" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#F4DCA0" stopOpacity="0" />
           </radialGradient>
           <radialGradient id="hts-trail-c">
-            <stop offset="0%" stopColor="#A9D8FF" stopOpacity="1" />
-            <stop offset="50%" stopColor="#A9D8FF" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#A9D8FF" stopOpacity="0" />
+            <stop offset="0%" stopColor="#C9A45E" stopOpacity="1" />
+            <stop offset="50%" stopColor="#C9A45E" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#C9A45E" stopOpacity="0" />
           </radialGradient>
         </defs>
 
@@ -168,7 +172,7 @@ export default function HeroTransferScene({
 
       {/* Couche 2 — papillon PNG (devant le flux, la lueur transparaît) */}
       <img
-        src="/assets/temposystem-butterfly-transparent.png"
+        src={butterflySrc}
         className="hts-butterfly"
         alt=""
         aria-hidden="true"
@@ -178,22 +182,26 @@ export default function HeroTransferScene({
           pulse (1 s = chaque passage du point au centre). Filtre statique, blend screen. */}
       <img
         ref={chargeRef}
-        src="/assets/temposystem-butterfly-transparent.png"
+        src={butterflySrc}
         className="hts-butterfly hts-butterfly-charge"
         alt=""
         aria-hidden="true"
       />
 
       {/* Couche 3 — Compteurs HTML, calés au cœur de chaque aile */}
-      <div className="hts-counter hts-counter-left">
-        <span className="hts-clock hts-amber">{fmt(remaining)}</span>
-        <span className="hts-mana"><span className="hts-role">{giverLabel}</span>−{given}<span className="hts-unit-mana hts-unit-d">MANA</span></span>
-      </div>
+      {showCounters ? (
+        <>
+          <div className="hts-counter hts-counter-left">
+            <span className="hts-clock hts-amber">{fmt(remaining)}</span>
+            <span className="hts-mana"><span className="hts-role">{giverLabel}</span>−{given}<span className="hts-unit-mana hts-unit-d">MANA</span></span>
+          </div>
 
-      <div className="hts-counter hts-counter-right">
-        <span className="hts-clock hts-green">{fmt(given)}</span>
-        <span className="hts-mana"><span className="hts-role">{receiverLabel}</span>+{given}<span className="hts-unit-mana hts-unit-r">MANA</span></span>
-      </div>
+          <div className="hts-counter hts-counter-right">
+            <span className="hts-clock hts-green">{fmt(given)}</span>
+            <span className="hts-mana"><span className="hts-role">{receiverLabel}</span>+{given}<span className="hts-unit-mana hts-unit-r">MANA</span></span>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }

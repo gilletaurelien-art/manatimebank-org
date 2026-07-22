@@ -1,6 +1,4 @@
-import HeroTransferScene from "./HeroTransferScene";
 import ContactSection from "./ContactSection";
-import HeroShowcase from "./HeroShowcase";
 import DashboardMockup from "./DashboardMockup";
 import {
   useLang,
@@ -26,7 +24,6 @@ import {
   usedBy,
   pricing,
   foundations,
-  lullaby,
   whitePaper,
   finalCta,
 } from "./copy";
@@ -46,7 +43,13 @@ export default function App() {
           <div className="relative z-10 mx-auto grid w-full max-w-content items-center gap-12 py-16 lg:grid-cols-[1.05fr_0.95fr] lg:py-24">
             <div>
               <div className="flex items-center gap-2">
-                <span aria-hidden className="text-[15px] leading-none">🌍</span>
+                <span
+                  aria-hidden
+                  className="text-[15px] leading-none"
+                  style={{ filter: "sepia(1) saturate(3.2) hue-rotate(2deg) brightness(1.02)" }}
+                >
+                  🦋
+                </span>
                 <Eyebrow accent>{hero.eyebrow[lang]}</Eyebrow>
               </div>
               <h1 className="mt-5 text-[clamp(2.6rem,6vw,4.6rem)] font-bold leading-[1.03] tracking-[-0.02em] text-ink">
@@ -56,10 +59,7 @@ export default function App() {
                 {hero.subtitle[lang]}
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Cta href="/creer" variant="primary">
-                  {nav.create[lang]}
-                </Cta>
-                <Cta href="#contact" variant="secondary">
+                <Cta href="#contact" variant="primary">
                   {nav.demo[lang]}
                 </Cta>
               </div>
@@ -78,8 +78,13 @@ export default function App() {
               </div>
             </div>
 
-            <div className="relative">
-              <HeroShowcase />
+            <div className="relative flex items-center justify-center">
+              <figure className="hero-butterfly-frame">
+                <img
+                  src="/assets/manatimebank-butterfly.jpeg"
+                  alt="MANAtimebank — papillon-horloge"
+                />
+              </figure>
             </div>
           </div>
         </section>
@@ -208,7 +213,7 @@ export default function App() {
                 <br />
                 {whiteLabel.title2[lang]}
                 <br />
-                <span className="bg-gradient-to-r from-[#8FA0FF] to-[#E39BFF] bg-clip-text text-transparent">
+                <span className="text-white">
                   {whiteLabel.title3[lang]}
                 </span>
               </h2>
@@ -223,24 +228,32 @@ export default function App() {
                   </span>
                 ))}
               </div>
+
             </div>
 
-            <div className="grid gap-3">
-              {whiteLabel.examples.map((ex) => (
-                <div
-                  key={ex.name}
-                  className="flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur-sm"
+            <div className="flex flex-col items-center lg:items-end">
+              <figure className="hero-butterfly-frame wl-card">
+                <img src="/assets/manatimebank-card.jpeg" alt="MANA timebank × TEMPOsystem" />
+              </figure>
+              <div className="mt-6 w-full max-w-[460px] rounded-2xl border border-white/12 bg-white/[0.04] p-5 text-left">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-white/45">
+                  {whiteLabel.sovereignty.label[lang]}
+                </p>
+                <p className="mt-2 font-display text-lg font-bold text-white">
+                  {whiteLabel.sovereignty.title[lang]}
+                </p>
+                <p className="mt-2 text-[14px] leading-6 text-white/65">
+                  {whiteLabel.sovereignty.body[lang]}
+                </p>
+                <a
+                  href={whiteLabel.sovereignty.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-block text-[13.5px] font-semibold text-[#E7C877] transition-colors hover:text-[#FBE7A8]"
                 >
-                  <div className="grid h-11 w-11 flex-none place-items-center rounded-xl bg-gradient-to-br from-[#2B3FC7] to-[#C040E8] text-sm font-bold">
-                    {ex.name.slice(0, 2)}
-                  </div>
-                  <div>
-                    <p className="font-display text-lg font-bold leading-tight">{ex.name}</p>
-                    <p className="text-[12.5px] text-white/55">{ex.tag[lang]}</p>
-                  </div>
-                  <span className="ml-auto text-[11px] font-medium text-white/35">powered by MANAtimebank</span>
-                </div>
-              ))}
+                  {whiteLabel.sovereignty.link[lang]}
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -322,23 +335,6 @@ export default function App() {
           </div>
         </Section>
 
-        {/* LULLABY — l'infrastructure en mouvement (clôture émotionnelle) */}
-        <section id="lullaby" className="relative overflow-hidden text-white band-dark">
-          <div className="relative z-10 mx-auto flex max-w-content flex-col items-center px-6 py-20 text-center md:px-10 md:py-28">
-            <p className="mb-5 eyebrow text-white/50">{lullaby.eyebrow[lang]}</p>
-            <h2 className="font-display text-[clamp(2rem,5vw,3.2rem)] font-bold leading-[1.05] tracking-tight">
-              TempoSystem
-            </h2>
-            <p className="source-equation" aria-label="1 = 1" style={{ marginTop: "1rem" }}>
-              <span className="eq-part eq-time">{lullaby.equationTime[lang]}</span>
-              <span className="eq-sign">=</span>
-              <span className="eq-part eq-mana">{lullaby.equationMana[lang]}</span>
-            </p>
-            <HeroTransferScene giverLabel={lullaby.giver[lang]} receiverLabel={lullaby.receiver[lang]} />
-            <p className="max-w-xl text-[15px] leading-[1.8] text-white/70">{lullaby.body[lang]}</p>
-          </div>
-        </section>
-
         {/* ---------------- LIVRE BLANC ---------------- */}
         <Section id="livre-blanc">
           <div className="rounded-2xl border border-accent-muted bg-gradient-to-br from-accent-light to-surface-white p-8 sm:p-10">
@@ -366,15 +362,15 @@ export default function App() {
         {/* ---------------- CTA FINAL ---------------- */}
         <Section className="!py-10">
           <div className="rounded-3xl border border-surface-border bg-surface-white/70 p-10 text-center backdrop-blur-md sm:p-14">
+            <figure className="hero-butterfly-frame cta-butterfly">
+              <img src="/assets/manatimebank-card.jpeg" alt="MANA timebank × TEMPOsystem" />
+            </figure>
             <h2 className="mx-auto max-w-2xl font-display text-[clamp(1.8rem,3.6vw,2.6rem)] font-bold leading-[1.1] tracking-tight text-ink">
               {finalCta.title[lang]}
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-[15px] leading-7 text-ink-muted">{finalCta.body[lang]}</p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <Cta href="/creer" variant="primary">
-                {nav.create[lang]}
-              </Cta>
-              <Cta href="#contact" variant="secondary">
+              <Cta href="#contact" variant="primary">
                 {nav.demo[lang]}
               </Cta>
             </div>
