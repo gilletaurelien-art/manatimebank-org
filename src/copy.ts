@@ -864,7 +864,6 @@ export const createSpace = {
   submit: { en: "Create my time space", fr: "Créer mon espace temps" },
   sending: { en: "Sending…", fr: "Envoi…" },
   summaryTitle: { en: "Your time space", fr: "Votre espace temps" },
-  planLabel: { en: "Suggested plan", fr: "Formule suggérée" },
   required: { en: "This field is required.", fr: "Ce champ est requis." },
 
   // Étape 1 — organisation
@@ -900,13 +899,13 @@ export const createSpace = {
 
   // Étape 3 — communauté
   s3Title: { en: "How big is your community?", fr: "Quelle est la taille de votre communauté ?" },
-  s3Body: { en: "Active members — those who give or receive time. This sets your plan.", fr: "Membres actifs — ceux qui donnent ou reçoivent du temps. Cela définit votre formule." },
+  s3Body: { en: "Active members — those who give or receive time. This helps us scope your deployment.", fr: "Membres actifs — ceux qui donnent ou reçoivent du temps. Cela nous aide à cadrer votre déploiement." },
   sizes: [
-    { key: "xs", label: { en: "Under 10", fr: "Moins de 10" }, plan: "Community", price: { en: "Free", fr: "Gratuit" } },
-    { key: "sm", label: { en: "10 to 100", fr: "10 à 100" }, plan: "Organisation", price: { en: "€99/mo", fr: "99 €/mois" } },
-    { key: "md", label: { en: "100 to 500", fr: "100 à 500" }, plan: "Territoire", price: { en: "€399/mo", fr: "399 €/mois" } },
-    { key: "lg", label: { en: "500+", fr: "500 et plus" }, plan: "Réseau / White Label", price: { en: "Custom", fr: "Sur mesure" } },
-  ] as { key: string; label: { en: string; fr: string }; plan: string; price: { en: string; fr: string } }[],
+    { key: "xs", label: { en: "Under 10", fr: "Moins de 10" } },
+    { key: "sm", label: { en: "10 to 100", fr: "10 à 100" } },
+    { key: "md", label: { en: "100 to 500", fr: "100 à 500" } },
+    { key: "lg", label: { en: "500+", fr: "500 et plus" } },
+  ] as { key: string; label: { en: string; fr: string } }[],
 
   // Étape 4 — contact
   s4Title: { en: "Where do we reach you?", fr: "Où vous joindre ?" },

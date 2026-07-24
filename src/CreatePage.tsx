@@ -152,7 +152,6 @@ function CreateWizard({ lang }: { lang: Lang }) {
       "Adresse": `${slug}.manatimebank.org`,
       "Langues": v.langs.join(", ") || "—",
       "Taille (membres actifs)": sizeInfo ? sizeInfo.label.fr : v.size,
-      "Formule suggérée": sizeInfo ? sizeInfo.plan : "—",
       name: v.contactName,
       email: v.email,
       message: v.message || "—",
@@ -328,9 +327,6 @@ function CreateWizard({ lang }: { lang: Lang }) {
                     <span className="mt-1 text-[12px] font-medium uppercase tracking-[0.08em] text-ink-faint">
                       {lang === "fr" ? "membres actifs" : "active members"}
                     </span>
-                    <span className="mt-3 inline-flex items-center gap-2 text-[13px] font-semibold text-accent">
-                      {s.plan} · {s.price[lang]}
-                    </span>
                   </button>
                 ))}
               </div>
@@ -419,14 +415,6 @@ function CreateWizard({ lang }: { lang: Lang }) {
                 </div>
               ) : null}
             </dl>
-
-            <div className="mt-6 rounded-xl border border-surface-border bg-surface-white/70 p-4">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-ink-faint">{C.planLabel[lang]}</p>
-              <p className="mt-1 font-display text-lg font-bold text-ink">
-                {sizeInfo ? sizeInfo.plan : "—"}
-              </p>
-              {sizeInfo ? <p className="text-[13px] font-semibold text-accent">{sizeInfo.price[lang]}</p> : null}
-            </div>
           </div>
         </aside>
       </div>
