@@ -566,94 +566,80 @@ export const usedBy = {
 
 export const pricing = {
   eyebrow: { en: "Pricing", fr: "Tarifs" },
-  title: { en: "Grows with your community", fr: "Grandit avec votre communauté" },
+  title: { en: "One foundation. Two ways in.", fr: "Une fondation. Deux façons d'y accéder." },
   body: {
-    en: "Priced by active members — degressive per head. Free under 10. Public-interest and non-profit pricing available.",
-    fr: "Au nombre de membres actifs — dégressif par tête. Gratuit sous 10. Tarifs d'intérêt général et associatifs disponibles.",
+    en: "MANAtimebank is the ledger of given time — the layer the ecosystem's apps run on. We never bill members: we open the foundation to operators, and in France or abroad the everyday use is deployed through TEMPOsystem.",
+    fr: "MANAtimebank est le grand livre du temps donné — le socle sur lequel tournent les applications de l'écosystème. On n'y facture jamais les membres : on ouvre le socle aux opérateurs, et en France ou à l'étranger l'usage se déploie via TEMPOsystem.",
   },
-  // Échelle par membres actifs (décision produit — ajustable ici).
+  // Deux voies d'accès (cap A+B). Voir la grille de formules sur temposystem.fr/#/tarifs.
   tiers: [
     {
-      name: "Community",
-      price: { en: "Free", fr: "Gratuit" },
-      period: { en: "forever", fr: "pour toujours" },
-      members: { en: "Up to 10 members", fr: "Jusqu'à 10 membres" },
-      for: { en: "A group getting started.", fr: "Un groupe qui démarre." },
-      featured: false,
-      features: {
-        en: ["Community & contributions", "Time logging & recognition", "Basic dashboard", "Community support"],
-        fr: ["Communauté & contributions", "Temps & reconnaissance", "Tableau de bord simple", "Support communautaire"],
-      },
-    },
-    {
-      name: "Organisation",
-      price: { en: "€99", fr: "99 €" },
-      period: { en: "/month", fr: "/mois" },
-      members: { en: "Up to 100 members", fr: "Jusqu'à 100 membres" },
-      for: { en: "Associations & institutions.", fr: "Associations & établissements." },
-      featured: true,
-      features: {
-        en: ["Everything in Community", "Full dashboards & reports", "Missions & skills matching", "Badges, ceremonies, passport", "Light branding", "Email support"],
-        fr: ["Tout Community", "Tableaux de bord & rapports", "Missions & mise en relation", "Badges, cérémonies, passeport", "Marque légère", "Support par e-mail"],
-      },
-    },
-    {
-      name: "Territoire",
-      price: { en: "€399", fr: "399 €" },
-      period: { en: "/month", fr: "/mois" },
-      members: { en: "Up to 500 members", fr: "Jusqu'à 500 membres" },
-      for: { en: "Local governments & networks.", fr: "Collectivités & réseaux." },
-      featured: false,
-      features: {
-        en: ["Everything in Organisation", "Territorial mapping", "Multi-organization federation", "API & webhooks", "Custom indicators", "Priority support"],
-        fr: ["Tout Organisation", "Cartographie territoriale", "Fédération multi-organisations", "API & webhooks", "Indicateurs sur mesure", "Support prioritaire"],
-      },
-    },
-    {
-      name: "Réseau / White Label",
+      name: "Infrastructure",
       price: { en: "Custom", fr: "Sur mesure" },
       period: { en: "", fr: "" },
-      members: { en: "500+ members", fr: "500+ membres" },
-      for: { en: "Your own branded infrastructure.", fr: "Votre infrastructure à votre marque." },
-      featured: false,
+      members: { en: "Operators & networks · Worldwide", fr: "Opérateurs & réseaux · Monde" },
+      for: {
+        en: "Run your own time bank on the open foundation — your brand, your data, your territory.",
+        fr: "Faites tourner votre propre banque de temps sur le socle ouvert — votre marque, vos données, votre territoire.",
+      },
+      featured: true,
+      cta: { en: "Talk to us", fr: "Nous contacter" },
+      href: "/#contact",
       features: {
-        en: ["Everything in Territoire", "Full white-label & domains", "Dedicated hosting & SSO", "Custom rules & data residency", "SLA & onboarding", "Dedicated support"],
-        fr: ["Tout Territoire", "Marque blanche & domaines", "Hébergement dédié & SSO", "Règles & résidence des données", "SLA & accompagnement", "Support dédié"],
+        en: ["The ledger of time — open model", "API, webhooks & federation", "White-label, domains & SSO", "Dedicated hosting & data residency", "Sovereignty & custom rules", "SLA, onboarding & dedicated support"],
+        fr: ["Le grand livre du temps — modèle ouvert", "API, webhooks & fédération", "Marque blanche, domaines & SSO", "Hébergement dédié & résidence des données", "Souveraineté & règles sur mesure", "SLA, accompagnement & support dédié"],
+      },
+    },
+    {
+      name: "TEMPOsystem",
+      price: { en: "From €0", fr: "Dès 0 €" },
+      period: { en: "/year", fr: "/an" },
+      members: { en: "Non-profits & authorities · France & abroad", fr: "Associations & collectivités · France & étranger" },
+      for: {
+        en: "A non-profit, network or local authority, in France or abroad? The turnkey use is deployed through a TEMPOsystem plan.",
+        fr: "Une asso, un réseau ou une collectivité, en France ou à l'étranger ? L'usage clé en main se déploie via une formule TEMPOsystem.",
+      },
+      featured: false,
+      cta: { en: "See TEMPOsystem pricing", fr: "Voir la grille TEMPOsystem" },
+      href: "https://temposystem.fr/#/tarifs",
+      features: {
+        en: ["Découverte — free · up to 9 active", "Éclosion — €1,200/yr · up to 99", "Coopération — €3,600/yr · up to 499", "Territoire — €7,200/yr · up to 999", "Alliance — custom quote · 1,000+", "Authorities: €0.22–0.70 / resident / year"],
+        fr: ["Découverte — gratuit · jusqu'à 9 actifs", "Éclosion — 1 200 €/an · jusqu'à 99", "Coopération — 3 600 €/an · jusqu'à 499", "Territoire — 7 200 €/an · jusqu'à 999", "Alliance — sur devis · 1 000 et +", "Collectivités : 0,22 à 0,70 € / habitant / an"],
       },
     },
   ],
   cta: { en: "Talk to us", fr: "Nous contacter" },
   note: {
-    en: "Billed by active members, not sign-ups. −2 months on annual billing. −50% for public-interest & non-profit organizations.",
-    fr: "Facturé aux membres actifs, pas aux inscrits. −2 mois en facturation annuelle. −50 % pour les organisations d'intérêt général et associatives.",
+    en: "Citizens, volunteers and beneficiaries are never billed individually. In France and abroad, the everyday use is deployed through TEMPOsystem; the foundation stays open to operators who want their own instance.",
+    fr: "Les citoyens, bénévoles et bénéficiaires ne sont jamais facturés individuellement. En France comme à l'étranger, l'usage se déploie via TEMPOsystem ; le socle reste ouvert aux opérateurs qui veulent leur propre instance.",
   },
   faq: [
     {
-      q: { en: "What counts as a member?", fr: "Qu'est-ce qu'un membre ?" },
+      q: { en: "Why no price per member?", fr: "Pourquoi pas de prix par membre ?" },
       a: {
-        en: "An active member is someone who contributed or received time in the last 30 days. Inactive sign-ups are never billed.",
-        fr: "Un membre actif a donné ou reçu du temps dans les 30 derniers jours. Les inscrits inactifs ne sont jamais facturés.",
+        en: "MANAtimebank is an infrastructure, not software sold by headcount. We never bill citizens or volunteers. Access is either an infrastructure licence (operators) or a TEMPOsystem plan (everyday use).",
+        fr: "MANAtimebank est une infrastructure, pas un logiciel vendu à la tête. On ne facture jamais les citoyens ni les bénévoles. L'accès se fait soit par une licence d'infrastructure (opérateurs), soit par une formule TEMPOsystem (l'usage).",
       },
     },
     {
-      q: { en: "Do you offer non-profit pricing?", fr: "Avez-vous un tarif associatif ?" },
+      q: { en: "I run a non-profit in France — where do I start?", fr: "Je suis une asso française, par où je commence ?" },
       a: {
-        en: "Yes — public-interest and non-profit organizations get 50% off every paid tier. Just tell us who you are.",
-        fr: "Oui — les organisations d'intérêt général et associatives bénéficient de −50 % sur chaque palier payant. Dites-nous simplement qui vous êtes.",
+        en: "Through TEMPOsystem: the Découverte plan is free up to 9 active users, then Éclosion (€1,200/yr) and beyond. See the full ladder on temposystem.fr.",
+        fr: "Par TEMPOsystem : la formule Découverte est gratuite jusqu'à 9 utilisateurs actifs, puis Éclosion (1 200 €/an) et au-delà. La grille complète est sur temposystem.fr.",
       },
     },
     {
-      q: { en: "What happens when we grow past a tier?", fr: "Que se passe-t-il quand on dépasse un palier ?" },
+      q: { en: "Can we run our own instance?", fr: "Peut-on héberger notre propre instance ?" },
       a: {
-        en: "You move up naturally when your active members cross the threshold. No lock-in, no surprise — pricing is degressive per member.",
-        fr: "Vous montez naturellement d'un palier quand vos membres actifs franchissent le seuil. Aucun verrou, aucune surprise — le prix est dégressif par membre.",
+        en: "Yes — that is exactly the Infrastructure path: white-label, domains, data residency, SSO and custom rules, tailored to your organisation.",
+        fr: "Oui — c'est précisément la voie Infrastructure : marque blanche, domaines, résidence des données, SSO et règles sur mesure, adaptés à votre organisation.",
       },
     },
     {
-      q: { en: "Can we self-host?", fr: "Peut-on héberger nous-mêmes ?" },
+      q: { en: "Public-interest or non-profit pricing?", fr: "Tarif d'intérêt général ou associatif ?" },
       a: {
-        en: "The model and coordination layer are open. Dedicated hosting, data residency and self-hosting are part of the Réseau / White Label tier.",
-        fr: "Le modèle et la couche de coordination sont ouverts. Hébergement dédié, résidence des données et auto-hébergement font partie du palier Réseau / Marque blanche.",
+        en: "The Découverte plan is free, and the pricing is public-interest by design — calibrated case by case. Beneficiaries never pay.",
+        fr: "La formule Découverte est gratuite, et les tarifs sont d'intérêt général par nature — calibrés au cas par cas. Les bénéficiaires ne paient jamais.",
       },
     },
   ],

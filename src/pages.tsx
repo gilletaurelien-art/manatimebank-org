@@ -79,7 +79,7 @@ export function PricingPage() {
         <>
           <PageHero eyebrow={pricing.eyebrow[lang]} title={pricing.title[lang]} body={pricing.body[lang]} />
           <Section className="!pt-4">
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-2">
               {pricing.tiers.map((tier) => (
                 <div
                   key={tier.name}
@@ -87,22 +87,17 @@ export function PricingPage() {
                     tier.featured ? "border-accent-muted bg-surface-white shadow-card-hover" : "border-surface-border bg-surface-white/80"
                   }`}
                 >
-                  {tier.featured ? (
-                    <span className="absolute -top-2.5 left-6 rounded-full gradient-btn px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-white">
-                      {lang === "fr" ? "Populaire" : "Popular"}
-                    </span>
-                  ) : null}
-                  <h2 className="font-display text-lg font-bold text-ink">{tier.name}</h2>
+                  <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-accent">{tier.members[lang]}</p>
+                  <h2 className="mt-1 font-display text-lg font-bold text-ink">{tier.name}</h2>
                   <div className="mt-3 flex items-baseline gap-1">
                     <span className="text-3xl font-bold tracking-tight text-ink">{tier.price[lang]}</span>
                     {tier.period[lang] ? <span className="text-[13px] text-ink-muted">{tier.period[lang]}</span> : null}
                   </div>
-                  <p className="mt-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-accent">{tier.members[lang]}</p>
                   <p className="mt-2 text-[13px] leading-6 text-ink-muted">{tier.for[lang]}</p>
                   <div className="mt-4 h-px w-full bg-surface-divider" />
                   <CheckList items={tier.features[lang]} />
-                  <Cta href="/#contact" variant={tier.featured ? "primary" : "plain"} className="mt-6 w-full">
-                    {pricing.cta[lang]}
+                  <Cta href={tier.href} variant={tier.featured ? "primary" : "plain"} className="mt-6 w-full">
+                    {tier.cta[lang]}
                   </Cta>
                 </div>
               ))}

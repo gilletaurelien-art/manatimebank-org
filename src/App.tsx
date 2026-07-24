@@ -285,7 +285,7 @@ export default function App() {
         {/* ---------------- 10. TARIFS ---------------- */}
         <Section id="tarifs">
           <SectionHead eyebrow={pricing.eyebrow[lang]} title={pricing.title[lang]} body={pricing.body[lang]} center />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mx-auto mt-12 grid max-w-3xl gap-4 sm:grid-cols-2">
             {pricing.tiers.map((tier) => (
               <div
                 key={tier.name}
@@ -295,23 +295,23 @@ export default function App() {
                     : "border-surface-border bg-surface-white/80"
                 }`}
               >
-                {tier.featured ? (
-                  <span className="absolute -top-2.5 left-6 rounded-full gradient-btn px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em] text-white">
-                    {lang === "fr" ? "Populaire" : "Popular"}
-                  </span>
-                ) : null}
-                <h3 className="font-display text-lg font-bold text-ink">{tier.name}</h3>
+                <p className="text-[12px] font-semibold uppercase tracking-[0.08em] text-accent">{tier.members[lang]}</p>
+                <h3 className="mt-1 font-display text-lg font-bold text-ink">{tier.name}</h3>
                 <div className="mt-3 flex items-baseline gap-1">
                   <span className="text-2xl font-bold tracking-tight text-ink">{tier.price[lang]}</span>
                   {tier.period[lang] ? <span className="text-[13px] text-ink-muted">{tier.period[lang]}</span> : null}
                 </div>
-                <p className="mt-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-accent">{tier.members[lang]}</p>
                 <p className="mt-2 flex-1 text-[13px] leading-6 text-ink-muted">{tier.for[lang]}</p>
-                <Cta href="/tarifs" variant={tier.featured ? "primary" : "plain"} className="mt-6 w-full">
-                  {pricing.cta[lang]}
+                <Cta href={tier.href} variant={tier.featured ? "primary" : "plain"} className="mt-6 w-full">
+                  {tier.cta[lang]}
                 </Cta>
               </div>
             ))}
+          </div>
+          <div className="mt-6 text-center">
+            <a href="/tarifs" className="text-[13px] font-semibold text-accent underline-offset-4 hover:underline">
+              {lang === "fr" ? "Voir le détail des deux voies →" : "See both paths in detail →"}
+            </a>
           </div>
         </Section>
 
